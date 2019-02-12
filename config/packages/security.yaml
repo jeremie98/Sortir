@@ -18,7 +18,6 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginAuthenticator
-
             # activate different ways to authenticate
 
             # http_basic: true
