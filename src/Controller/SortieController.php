@@ -17,17 +17,21 @@ class SortieController extends AbstractController
     {
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
+        // récupération de l'id de l'utilisateur pour remplir le champ "Organisateur"
+        $sortie->setOrganisateur($this->getUser());
         $sortieForm->handleRequest($req);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sortie);
             $em->flush();
 
-            $this->addFlash('succes', 'Votre sortie a bien été enregistrée.');
+            $this->addFlash('success', 'Votre sortie a bien été enregistrée.');
             return $this->redirectToRoute('default');
         }
         return $this->render('creer_sortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
         ]);
     }
+
+    
 }
