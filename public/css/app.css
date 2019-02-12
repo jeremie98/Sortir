@@ -25,4 +25,9 @@ footer{
 #filtres{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+#lesCheckbox{
+    display: flex;
+    flex-direction: column;
 }
