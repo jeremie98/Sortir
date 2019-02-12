@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -64,6 +66,22 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $ville;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur")
+     */
+    private $sortiesOrg;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", mappedBy="participants")
+     */
+    private $sorties;
+
+    public function __construct()
+    {
+        $this->sortiesOrg = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -213,5 +231,44 @@ class User implements UserInterface
         $this->ville = $ville;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|SortieOrg[]
+     */
+    public function getSortiesOrg(): Collection
+    {
+        return $this->sortiesOrg;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->sortiesOrg->contains($sorty)) {
+            $this->sortiesOrg[] = $sorty;
+            $sorty->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->sortiesOrg->contains($sorty)) {
+            $this->sortiesOrg->removeElement($sorty);
+            // set the owning side to null (unless already changed)
+            if ($sorty->getOrganisateur() === $this) {
+                $sorty->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
     }
 }
