@@ -2,21 +2,39 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" href="#">
         <title>{% block title %}Sortir{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+            <link rel="icon" href="{{ asset('img/logo.png') }}">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         {% endblock %}
     </head>
-    <header>
-        <div>
-
-        </div>
-    </header>
     <body>
-        {% block content %}{% endblock %}
+        <header>
+            <div id="main-nav" class="nav">
+                <div id="title">
+                    <img src="{{ asset('img/logo.png') }}" width="80" height="80" alt="LogoApplication">
+                    <h1>Sortir</h1>
+                </div>
+                <div id="menu">
+                    <a href="#">Villes</a>
+                    <a href="#">Sites</a>
+                    <a href="{{ path('home') }}">Accueil</a>
+                    <a href="#">Mon profil</a>
+                    <a href="#">Se déconnecter</a>
+                </div>
+            </div>
+        </header>
 
-        {% block javascripts %}
+            <main>
+                {% block content %}{% endblock %}
+            </main>
 
-        {% endblock %}
+        <footer>
+
+        </footer>
     </body>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
 </html>
