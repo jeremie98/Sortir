@@ -76,7 +76,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $laptitude;
+    private $latitude;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -236,14 +236,14 @@ class Sortie
         return $this;
     }
 
-    public function getLaptitude(): ?string
+    public function getLatitude(): ?string
     {
-        return $this->laptitude;
+        return $this->latitude;
     }
 
-    public function setLaptitude(?string $laptitude): self
+    public function setLatitude(?string $latitude): self
     {
-        $this->laptitude = $laptitude;
+        $this->latitude = $latitude;
 
         return $this;
     }

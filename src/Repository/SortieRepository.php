@@ -47,4 +47,5 @@ class SortieRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

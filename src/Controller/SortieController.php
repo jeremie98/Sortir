@@ -33,5 +33,67 @@ class SortieController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("afficher/{id}",
+     *     name="afficher",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET", "POST"}
+     *     )
+     */
+    public function afficherSortie(int $id){
+
+        $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $SortieRepository->find($id);
+
+        $participants = $sortie->getParticipants();
+
+        if (!$sortie) {
+
+            throw $this->createNotFoundException("Cette sortie n'existe pas !");
+        }
+
+        return $this->render('sortie/details.html.twig', [
+            "sortie" => $sortie,
+            "participants" => $participants
+        ]);
+
+    }
+    /**
+     * @Route("inscrire", name="inscrire",
+     * methods={"POST"})
+     */
+    public function inscrire(Request $request)
+    {
+        $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+
+        $sortie = $SortieRepository->find($request->request->get('id_sortie'));
+
+        $sortie->addParticipant($this->getUser());
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($sortie);
+        $em->flush();
+
+
+
+
+        return $this->redirectToRoute('home', [
+
+        ]);
+
+    }
+
+    /**
+     * @Route("annuler", name"annuler",
+     *     methods={"POST"})
+     */
+    public function annuler(){
+
+
+    }
+
+
+
     
 }

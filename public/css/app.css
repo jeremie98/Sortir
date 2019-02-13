@@ -31,3 +31,16 @@ footer{
     display: flex;
     flex-direction: column;
 }
+
+#info, #info2{
+
+     display: flex;
+     flex-direction: column;
+ }
+
+#infoparent{
+
+    display: flex;
+    flex-direction: row;
+
+}
