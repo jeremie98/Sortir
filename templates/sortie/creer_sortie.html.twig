@@ -3,11 +3,33 @@
 {% block title %}Créer une sortie{% endblock %}
 
 {% block content %}
-    <h1>Créer une sortie</h1>
+    <div class="container">
 
-    {{ form_start(sortieForm) }}
-    {{ form_widget(sortieForm) }}
-    <button class="btn">Enregistrer</button>
-    {{ form_end(sortieForm) }}
+        <h3>Créer une sortie</h3>
+        {{ form_start(sortieForm) }}
+        <div class="row">
+
+            <div class="col-6">
+                {{ form_row(sortieForm.nom ) }}
+                {{ form_row(sortieForm.dateSortie ) }}
+                {{ form_row(sortieForm.dateLimiteInscription ) }}
+                {{ form_row(sortieForm.nbPlace ) }}
+                {{ form_row(sortieForm.duree ) }}
+                {{ form_row(sortieForm.description ) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(sortieForm.ville ) }}
+                {{ form_row(sortieForm.villeOrganisatrice ) }}
+                {{ form_row(sortieForm.lieu ) }}
+                {{ form_row(sortieForm.rue ) }}
+                {{ form_row(sortieForm.codePostal ) }}
+                {{ form_row(sortieForm.laptitude ) }}
+                {{ form_row(sortieForm.longitude ) }}
+            </div>
+            {{ form_end(sortieForm) }}
+            <button class="btn">Enregistrer</button>
+
+        </div>
+    </div>
 
 {% endblock %}
