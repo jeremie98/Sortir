@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="df770db9-a1d5-4adf-9cad-a370506b8764" name="Default Changelist" comment="Merge remote-tracking branch 'remotes/origin/jeremie98' into rudy&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <change afterPath="$PROJECT_DIR$/public/img/profil/profil.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/user_profil.html.twig" afterDir="false" />
+    <list default="true" id="df770db9-a1d5-4adf-9cad-a370506b8764" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SortieController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SortieController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Site.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Site.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Sortie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Sortie.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/SortieType.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/LieuRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sortie/creer_sortie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sortie/creer_sortie.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sortie/details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sortie/details.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/SortieType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/SortieType.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,20 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Form/SortieType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="21" column="32" lean-forward="true" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Sortie.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1821">
-              <caret line="153" column="4" selection-start-line="153" selection-start-column="4" selection-end-line="153" selection-end-column="4" />
-              <folding>
-                <element signature="e#30#78#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="238">
+              <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -109,8 +86,8 @@
         <option value="$PROJECT_DIR$/templates/sortie/details.html.twig" />
         <option value="$PROJECT_DIR$/src/Form/RegistrationFormType.php" />
         <option value="$PROJECT_DIR$/src/Entity/Ville.php" />
-        <option value="$PROJECT_DIR$/src/Form/SortieType.php" />
         <option value="$PROJECT_DIR$/templates/sortie/creer_sortie.html.twig" />
+        <option value="$PROJECT_DIR$/src/Form/SortieType.php" />
       </list>
     </option>
   </component>
@@ -219,9 +196,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-51" />
-    <option name="y" value="62" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-107" />
+    <option name="y" value="55" />
     <option name="width" value="1229" />
     <option name="height" value="996" />
   </component>
@@ -476,11 +453,18 @@
       <option name="project" value="LOCAL" />
       <updated>1549988821758</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="--- modif base (form, etc ...)">
+      <created>1550074403485</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1550074403485</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49655000" />
+    <option name="totallyTimeSpent" value="50058000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -492,7 +476,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-51" y="62" width="1229" height="996" extended-state="0" />
+    <frame x="-107" y="55" width="1229" height="996" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22583404" />
@@ -528,7 +512,8 @@
     <MESSAGE value="-- ajout css&#10;-- accueil&#10;-- modif security" />
     <MESSAGE value="debut afficher profil : twig + fonction d'affichage" />
     <MESSAGE value="Merge remote-tracking branch 'remotes/origin/jeremie98' into rudy&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'remotes/origin/jeremie98' into rudy&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="--- modif base (form, etc ...)" />
+    <option name="LAST_COMMIT_MESSAGE" value="--- modif base (form, etc ...)" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Kernel.php">
@@ -764,7 +749,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/Sortie.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1821">
+        <state relative-caret-position="1683">
           <caret line="153" column="4" selection-start-line="153" selection-start-column="4" selection-end-line="153" selection-end-column="4" />
           <folding>
             <element signature="e#30#78#0#PHP" expanded="true" />
@@ -774,8 +759,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Form/SortieType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="21" column="32" lean-forward="true" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+        <state relative-caret-position="238">
+          <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
         </state>
       </provider>
     </entry>
