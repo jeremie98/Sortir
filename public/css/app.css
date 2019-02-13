@@ -12,9 +12,10 @@ footer{
 #title{
     display: flex;
     flex-direction: row;
+    padding: 2em;
 }
 #menu a{
-    margin: 10px;
+    margin: 2em;
     text-decoration: none;
     color: #007bff;
 }
@@ -26,8 +27,21 @@ footer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 2em;
+}
+#filtres button{
+    width: 15em;
+    height: 5em;
 }
 #lesCheckbox{
     display: flex;
+    flex-direction: row;
+}
+#laCbx, #lblCbx{
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+.h2Home{
+    margin-left: 1em;
 }

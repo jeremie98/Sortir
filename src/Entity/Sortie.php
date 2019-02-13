@@ -56,11 +56,6 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $villeOrganisatrice;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
     private $lieu;
 
     /**
@@ -76,7 +71,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $laptitude;
+    private $latitude;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -93,6 +88,17 @@ class Sortie
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="sorties")
      */
     private $participants;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $siteOrg;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $etat;
 
     public function __construct()
     {
@@ -188,18 +194,6 @@ class Sortie
         return $this;
     }
 
-    public function getVilleOrganisatrice(): ?string
-    {
-        return $this->villeOrganisatrice;
-    }
-
-    public function setVilleOrganisatrice(string $villeOrganisatrice): self
-    {
-        $this->villeOrganisatrice = $villeOrganisatrice;
-
-        return $this;
-    }
-
     public function getLieu(): ?string
     {
         return $this->lieu;
@@ -236,14 +230,14 @@ class Sortie
         return $this;
     }
 
-    public function getLaptitude(): ?string
+    public function getLatitude(): ?string
     {
-        return $this->laptitude;
+        return $this->latitude;
     }
 
-    public function setLaptitude(?string $laptitude): self
+    public function setLatitude(?string $latitude): self
     {
-        $this->laptitude = $laptitude;
+        $this->latitude = $latitude;
 
         return $this;
     }
@@ -294,6 +288,30 @@ class Sortie
         if ($this->participants->contains($participant)) {
             $this->participants->removeElement($participant);
         }
+
+        return $this;
+    }
+
+    public function getSiteOrg(): ?Site
+    {
+        return $this->siteOrg;
+    }
+
+    public function setSiteOrg(?Site $siteOrg): self
+    {
+        $this->siteOrg = $siteOrg;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

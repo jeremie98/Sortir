@@ -3,29 +3,75 @@
 {% block content %}
 
     <div id="datejour">
-        Date du jour :  <br>
+        Date du jour :  {{ "now"|date("d/m/Y") }}<br>
         Participant : {{ participant.prenom }} {{ participant.nom }}
     </div>
 
-    <h2>Filtrer les sorties</h2>
+    <h2 class="h2Home">Filtrer les sorties</h2>
     <div id="filtres">
-        <div>
-            <label for="site">Site</label><br>
-            <label for="search">Le nom de la sortie contient</label><br>
-            <label for="entre">Entre</label>
-            <label for="et">et</label>
+        <div id="">
+            <label for="site-select">Site</label>
+            <select id="site-select" name="site-select">
+                <option value="">--Choississez un site--</option>
+                <option value="">Rezé</option>
+                <option value="">Saint-Herblain</option>
+            </select>
+            <br>
+            <label for="search-bar">Le nom de la sortie contient</label>
+            <input type="search" id="search-bar" name="search-bar" aria-label="Search">
+            <br>
+            <label for="entre">Entre</label><input type="date" id="entre" name="dateEntre">
+            <label for="et">et</label><input type="date" id="et" name="dateEt">
         </div>
         <div id="lesCheckbox">
-            <input type="checkbox" id="sortOrg" name="sortOrg"><label for="sortOrg">Sorties dont je suis l'organisateur/trice</label>
-            <input type="checkbox" id="sortInsc" name="sortInsc"><label for="sortInsc">Sorties auxquelles je suis inscrit/e</label>
-            <input type="checkbox" id="sortPasInsc" name="sortPasInsc"><label for="sortPasInsc">Sorties auxquelles je ne suis pas inscrit/e</label>
-            <input type="checkbox" id="sortPass" name="sortPass"><label for="sortPass">Sorties passées</label>
+            <div id="laCbx">
+                <input type="checkbox" id="sortOrg" name="sortOrg">
+                <input type="checkbox" id="sortInsc" name="sortInsc">
+                <input type="checkbox" id="sortPasInsc" name="sortPasInsc">
+                <input type="checkbox" id="sortPass" name="sortPass">
+            </div>
+            <div id="lblCbx">
+                <label for="sortOrg">Sorties dont je suis l'organisateur/trice</label>
+                <label for="sortInsc">Sorties auxquelles je suis inscrit/e</label>
+                <label for="sortPasInsc">Sorties auxquelles je ne suis pas inscrit/e</label>
+                <label for="sortPass">Sorties passées</label>
+            </div>
         </div>
 
         <!-- Bouton Rechercher-->
         <button name="rechercher">Rechercher</button>
 
     </div>
+    <div id="tabSorties">
+        <table>
+            <tr>
+                <th>Nom de la sortie</th>
+                <th>Date de la sortie</th>
+                <th>Clôture</th>
+                <th>inscrits/places</th>
+                <th>Etat</th>
+                <th>Inscrit</th>
+                <th>Organisateur</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for sortie in sorties %}
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td>{{ sortie.dateSortie|date("d/m/Y H:i") }}</td>
+                    <td>{{ sortie.dateLimiteInscription|date("d/m/Y") }}</td>
+                    <td>{{ sortie.nbPlace }}</td>
+                    <td>En cours</td>
+                    <td>X</td>
+                    <td>{{ sortie.organisateur }}</td>
+                    <td>Afficher - Se désister</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <button>Créer une sortie</button>
+
 {% endblock %}
 
 {% block title %}Sortir | Accueil{% endblock %}
