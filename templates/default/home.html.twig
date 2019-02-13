@@ -3,11 +3,27 @@
 {% block content %}
 
     <div id="datejour">
-        Date du jour : <br>
-        Participant :
+        Date du jour :  <br>
+        Participant : {{ participant.prenom }} {{ participant.nom }}
     </div>
 
+    <h2>Filtrer les sorties</h2>
     <div id="filtres">
+        <div>
+            <label for="site">Site</label><br>
+            <label for="search">Le nom de la sortie contient</label><br>
+            <label for="entre">Entre</label>
+            <label for="et">et</label>
+        </div>
+        <div id="lesCheckbox">
+            <input type="checkbox" id="sortOrg" name="sortOrg"><label for="sortOrg">Sorties dont je suis l'organisateur/trice</label>
+            <input type="checkbox" id="sortInsc" name="sortInsc"><label for="sortInsc">Sorties auxquelles je suis inscrit/e</label>
+            <input type="checkbox" id="sortPasInsc" name="sortPasInsc"><label for="sortPasInsc">Sorties auxquelles je ne suis pas inscrit/e</label>
+            <input type="checkbox" id="sortPass" name="sortPass"><label for="sortPass">Sorties passées</label>
+        </div>
+
+        <!-- Bouton Rechercher-->
+        <button name="rechercher">Rechercher</button>
 
     </div>
 {% endblock %}

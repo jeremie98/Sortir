@@ -5,9 +5,9 @@
         <link rel="icon" href="#">
         <title>{% block title %}Sortir{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="icon" href="{{ asset('img/logo.png') }}">
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
             <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            <link rel="icon" href="{{ asset('img/logo.png') }}">
         {% endblock %}
     </head>
     <body>
@@ -21,7 +21,7 @@
                     <a href="#">Villes</a>
                     <a href="#">Sites</a>
                     <a href="{{ path('home') }}">Accueil</a>
-                    <a href="#">Mon profil</a>
+                    <a href="{{ path('my_profil')}}">Mon profil</a>
                     <a href="#">Se déconnecter</a>
                 </div>
             </div>
