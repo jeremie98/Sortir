@@ -12,10 +12,9 @@ footer{
 #title{
     display: flex;
     flex-direction: row;
-    padding: 2em;
 }
 #menu a{
-    margin: 2em;
+    margin: 10px;
     text-decoration: none;
     color: #007bff;
 }
@@ -44,4 +43,17 @@ footer{
 }
 .h2Home{
     margin-left: 1em;
+}
+
+#info, #info2{
+
+     display: flex;
+     flex-direction: column;
+ }
+
+#infoparent{
+
+    display: flex;
+    flex-direction: row;
+
 }
