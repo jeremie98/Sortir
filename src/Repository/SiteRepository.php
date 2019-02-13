@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Sortie;
+use App\Entity\Site;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
- * @method Sortie|null findOneBy(array $criteria, array $orderBy = null)
- * @method Sortie[]    findAll()
- * @method Sortie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Site|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Site|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Site[]    findAll()
+ * @method Site[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SortieRepository extends ServiceEntityRepository
+class SiteRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Sortie::class);
+        parent::__construct($registry, Site::class);
     }
 
     // /**
-    //  * @return Sortie[] Returns an array of Sortie objects
+    //  * @return Site[] Returns an array of Site objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class SortieRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Sortie
+    public function findOneBySomeField($value): ?Site
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')
@@ -47,5 +47,4 @@ class SortieRepository extends ServiceEntityRepository
         ;
     }
     */
-
 }

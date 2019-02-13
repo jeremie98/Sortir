@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+
+        <h1 class="d-flex justify-content-center"> AFFICHER UNE SORTIE</h1>
+<div id="infoparent">
+    <div id="info">
+
+        Nom de la sortie : {{ sortie.nom }}<br>
+        Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d') }}<br>
+        Date limite d'inscription : {{ sortie.dateLimiteInscription|date('Y-m-d') }}<br>
+        Nombre de place : {{ sortie.nbPlace }}<br>
+        Durée : {{ sortie.duree|date('h') }} heures et {{ sortie.duree|date('m') }} minutes<br>
+        Description et infos : {{ sortie.description }}<br>
+
+    </div>
+    <div id="info2">
+        Ville organisatrice : {{ sortie.siteOrg }}<br>
+        Lieu : {{ sortie.lieu }}<br>
+        Rue : {{ sortie.lieu.rue }}<br>
+        Code postal : {{ sortie.lieu.codePostal }}<br>
+        Latitude : {{ sortie.lieu.latitude }}<br>
+        Longitude : {{ sortie.lieu.longitude }}<br>
+    </div>
+</div>
+
+    <h2> Liste des participants</h2>
+
+    <table>
+
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+        </tr>
+        {% for participant in participants %}
+
+        <tr>
+
+            <td>{{ participant.pseudo }}</td>
+            <td>{{ participant.prenom }} {{ participant.nom }}</td>
+        </tr>
+
+    {% endfor %}
+    </table>
+
+    <form method="post" action={{ path('inscrire') }}>
+
+        <input name="id_sortie" type="hidden" value="{{ sortie.id }}">
+        <button > s'incrire</button>
+
+    </form>
+
+{% endblock %}
+
+
+{% block title %}Sortir | Accueil{% endblock %}

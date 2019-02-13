@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Site;
 use App\Entity\User;
+use App\Entity\Ville;
 use function Sodium\add;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -40,7 +43,17 @@ class RegistrationFormType extends AbstractType
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
             ->add('telephone', TextType::class)
-            ->add('ville', TextType::class)
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'multiple' => false,
+                'expanded' => false
+            ])
+            ->add('userSite', EntityType::class, [
+                'label' => "Site : ",
+                'class' => Site::class,
+                'multiple' => false,
+                'expanded' => false
+            ])
         ;
     }
 

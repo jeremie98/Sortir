@@ -14,6 +14,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+
+    public function __toString()
+    {
+        return $this->getPrenom() . " ". $this->getNom();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -76,6 +82,12 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", mappedBy="participants")
      */
     private $sorties;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $userSite;
 
     public function __construct()
     {
@@ -270,5 +282,17 @@ class User implements UserInterface
     public function getSorties(): Collection
     {
         return $this->sorties;
+    }
+
+    public function getUserSite(): ?Site
+    {
+        return $this->userSite;
+    }
+
+    public function setUserSite(?Site $userSite): self
+    {
+        $this->userSite = $userSite;
+
+        return $this;
     }
 }
