@@ -49,36 +49,6 @@ class Sortie
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $ville;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $lieu;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $rue;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $codePostal;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $latitude;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $longitude;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -99,6 +69,12 @@ class Sortie
      * @ORM\Column(type="string", length=30)
      */
     private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lieu;
 
     public function __construct()
     {
@@ -182,78 +158,6 @@ class Sortie
         return $this;
     }
 
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getLieu(): ?string
-    {
-        return $this->lieu;
-    }
-
-    public function setLieu(string $lieu): self
-    {
-        $this->lieu = $lieu;
-
-        return $this;
-    }
-
-    public function getRue(): ?string
-    {
-        return $this->rue;
-    }
-
-    public function setRue(string $rue): self
-    {
-        $this->rue = $rue;
-
-        return $this;
-    }
-
-    public function getCodePostal(): ?string
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(?string $codePostal): self
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?string
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(?string $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?string
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(?string $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
     public function getOrganisateur(): ?User
     {
         return $this->organisateur;
@@ -312,6 +216,18 @@ class Sortie
     public function setEtat(string $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }

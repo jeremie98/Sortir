@@ -7,11 +7,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SiteRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
  */
-class Site
+class Lieu
 {
-
     public function __toString()
     {
         return $this->getNom();
@@ -30,18 +29,33 @@ class Site
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="userSite")
+     * @ORM\Column(type="string", length=255)
      */
-    private $users;
+    private $rue;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="siteOrg")
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $longitude;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="lieus")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="lieu")
      */
     private $sorties;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->sorties = new ArrayCollection();
     }
 
@@ -62,33 +76,50 @@ class Site
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
+    public function getRue(): ?string
     {
-        return $this->users;
+        return $this->rue;
     }
 
-    public function addUser(User $user): self
+    public function setRue(string $rue): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setUserSite($this);
-        }
+        $this->rue = $rue;
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function getLatitude(): ?float
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getUserSite() === $this) {
-                $user->setUserSite(null);
-            }
-        }
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }
@@ -105,7 +136,7 @@ class Site
     {
         if (!$this->sorties->contains($sorty)) {
             $this->sorties[] = $sorty;
-            $sorty->setSiteOrg($this);
+            $sorty->setLieu($this);
         }
 
         return $this;
@@ -116,8 +147,8 @@ class Site
         if ($this->sorties->contains($sorty)) {
             $this->sorties->removeElement($sorty);
             // set the owning side to null (unless already changed)
-            if ($sorty->getSiteOrg() === $this) {
-                $sorty->setSiteOrg(null);
+            if ($sorty->getLieu() === $this) {
+                $sorty->setLieu(null);
             }
         }
 
