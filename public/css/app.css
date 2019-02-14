@@ -26,10 +26,23 @@ footer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 2em;
+}
+#filtres button{
+    width: 15em;
+    height: 5em;
 }
 #lesCheckbox{
     display: flex;
+    flex-direction: row;
+}
+#laCbx, #lblCbx{
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+.h2Home{
+    margin-left: 1em;
 }
 
 #info, #info2{

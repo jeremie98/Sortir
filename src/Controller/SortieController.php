@@ -28,7 +28,7 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Votre sortie a bien été enregistrée.');
             return $this->redirectToRoute('default');
         }
-        return $this->render('creer_sortie.html.twig', [
+        return $this->render('sortie/creer_sortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
         ]);
     }
@@ -65,33 +65,17 @@ class SortieController extends AbstractController
     public function inscrire(Request $request)
     {
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-
         $sortie = $SortieRepository->find($request->request->get('id_sortie'));
 
         $sortie->addParticipant($this->getUser());
 
         $em = $this->getDoctrine()->getManager();
-
         $em->persist($sortie);
         $em->flush();
 
-
-
-
-        return $this->redirectToRoute('home', [
-
-        ]);
-
+        return $this->redirectToRoute('home');
     }
 
-    /**
-     * @Route("annuler", name"annuler",
-     *     methods={"POST"})
-     */
-    public function annuler(){
-
-
-    }
 
 
 
