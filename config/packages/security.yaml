@@ -19,6 +19,11 @@ security:
                 authenticators:
                     - App\Security\LoginAuthenticator
 
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 100
+                path: /
+
             logout:
                 path: app_logout
                 target: /
