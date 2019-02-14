@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="icon" href="#">
         <title>{% block title %}Sortir{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
@@ -14,15 +13,16 @@
         <header>
             <div id="main-nav" class="nav">
                 <div id="title">
-                    <img src="{{ asset('img/logo.png') }}" width="80" height="80" alt="LogoApplication">
-                    <h1>Sortir</h1>
+                        <img src="{{ asset('img/logo.png') }}" width="80" height="80" alt="LogoApplication">
+                        <h1>Sortir</h1>
                 </div>
                 <div id="menu">
                     <a href="#">Villes</a>
                     <a href="#">Sites</a>
                     <a href="{{ path('home') }}">Accueil</a>
                     <a href="{{ path('my_profil')}}">Mon profil</a>
-                    <a href="#">Se déconnecter</a>
+                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    <a href="{{ path('app_register') }}">S'inscrire</a>
                 </div>
             </div>
         </header>

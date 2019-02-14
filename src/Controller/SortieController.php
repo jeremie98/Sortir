@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     /**
-     * @Route("/sortie", name="sortie")
+     * @Route("/sortie/create", name="sortie")
      */
     public function creerSortie(Request $req)
     {
@@ -34,7 +34,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("afficher/{id}",
+     * @Route("/sortie/afficher/{id}",
      *     name="afficher",
      *     requirements={"id": "\d+"},
      *     methods={"GET", "POST"}
@@ -59,7 +59,7 @@ class SortieController extends AbstractController
 
     }
     /**
-     * @Route("inscrire", name="inscrire",
+     * @Route("/sortie/inscrire", name="inscrire",
      * methods={"POST"})
      */
     public function inscrire(Request $request)
