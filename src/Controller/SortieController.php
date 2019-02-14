@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     /**
-     * @Route("/sortie/create", name="sortie")
+     * @Route("/sortie/create", name="createsortie")
      */
     public function creerSortie(Request $req)
     {
@@ -76,8 +76,24 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    /**
+     * @Route("/sortie/desister/{id}",
+     *     name="desister",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET"}
+     *     )
+     */
+    public function desister(int $id)
+    {
+        $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
 
+        // supprime l'utilisateur de la liste des participants
+        $sortie->removeParticipant($this->getUser());
 
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
 
-    
+        return $this->redirectToRoute('home');
+    }
 }

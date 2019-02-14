@@ -19,6 +19,16 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function findSortiesPasInscrit(){
+        return $this->createQueryBuilder('s')
+            ->andWhere(":user IN(s.participants)")
+            ->setParameter('user', get_current_user())
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */

@@ -32,6 +32,12 @@ footer{
     width: 15em;
     height: 5em;
 }
+#filtresGeo{
+    width: 45%;
+}
+#filtresGeo select, input{
+    margin-left: 10%;
+}
 #lesCheckbox{
     display: flex;
     flex-direction: row;
@@ -48,7 +54,7 @@ footer{
     border : medium solid black;
     border-collapse: separate;
     width: 95%;
-
+    text-align: center;
 }
 #tableHome th{
     border : thin solid black;
@@ -56,6 +62,11 @@ footer{
 }
 #tableHome td{
     border: thin solid #007bff;
+}
+#btnCreateSortie{
+    padding: 0.5em;
+    margin: 2% 0% 0% 5%;
+    width: 15%;
 }
 .h2Home{
     margin-left: 1em;

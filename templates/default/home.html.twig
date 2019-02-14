@@ -8,19 +8,21 @@
     </div>
 
     <h2 class="h2Home">Filtrer les sorties</h2>
+
+    <form method="post" action="{{ path('home') }}">
     <div id="filtres">
-        <div id="">
-            <label for="site-select">Site</label>
+        <div id="filtresGeo">
+            <label for="site-select">Site : </label>
             <select id="site-select" name="site-select">
                 <option value="">--Choississez un site--</option>
                 <option value="">Rezé</option>
                 <option value="">Saint-Herblain</option>
             </select>
             <br>
-            <label for="search-bar">Le nom de la sortie contient</label>
+            <label for="search-bar">Le nom de la sortie contient : </label>
             <input type="search" id="search-bar" name="search-bar" aria-label="Search">
             <br>
-            <label for="entre">Entre</label><input type="date" id="entre" name="dateEntre">
+            <label for="entre">Entre </label><input type="date" id="entre" name="dateEntre">
             <label for="et">et</label><input type="date" id="et" name="dateEt">
         </div>
         <div id="lesCheckbox">
@@ -39,9 +41,10 @@
         </div>
 
         <!-- Bouton Rechercher-->
-        <button name="rechercher">Rechercher</button>
-
+        <button>Rechercher</button>
     </div>
+    </form>
+
     <div id="tabSorties">
         <table id="tableHome">
             <tr>
@@ -63,17 +66,18 @@
                     <td>{{ sortie.nbPlace }}</td>
                     <td>En cours</td>
                     <td>X</td>
-                    <td>{{ sortie.organisateur }}</td>
+                    <td><a href="#">{{ sortie.organisateur }}</a></td>
                     <td>
                         <a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a>
-                        <a href="#">- Se désister</a>
+                        -
+                        <a href="{{ path('desister', {'id' : sortie.id}) }}">Se désister</a>
                     </td>
                 </tr>
             {% endfor %}
         </table>
     </div>
 
-    <button>Créer une sortie</button>
+    <a href="{{ path('createsortie') }}"> <button id="btnCreateSortie">Créer une sortie</button></a>
 
 {% endblock %}
 
