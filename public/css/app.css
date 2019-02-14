@@ -41,16 +41,30 @@ footer{
     flex-direction: column;
     justify-content: space-between;
 }
+#tabSorties{
+    margin-left: 5% ;
+}
+#tableHome{
+    border : medium solid black;
+    border-collapse: separate;
+    width: 95%;
+
+}
+#tableHome th{
+    border : thin solid black;
+    background-color: #AAAAAA;
+}
+#tableHome td{
+    border: thin solid #007bff;
+}
 .h2Home{
     margin-left: 1em;
 }
-
 #info, #info2{
 
-     display: flex;
-     flex-direction: column;
- }
-
+    display: flex;
+    flex-direction: column;
+}
 #infoparent{
 
     display: flex;

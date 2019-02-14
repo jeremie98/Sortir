@@ -43,12 +43,12 @@
 
     </div>
     <div id="tabSorties">
-        <table>
+        <table id="tableHome">
             <tr>
                 <th>Nom de la sortie</th>
                 <th>Date de la sortie</th>
                 <th>Clôture</th>
-                <th>inscrits/places</th>
+                <th >inscrits/places</th>
                 <th>Etat</th>
                 <th>Inscrit</th>
                 <th>Organisateur</th>
@@ -64,7 +64,10 @@
                     <td>En cours</td>
                     <td>X</td>
                     <td>{{ sortie.organisateur }}</td>
-                    <td><a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a> - Se désister</td>
+                    <td>
+                        <a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a>
+                        <a href="#">- Se désister</a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
