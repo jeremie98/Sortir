@@ -11,7 +11,7 @@
         Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d') }}<br>
         Date limite d'inscription : {{ sortie.dateLimiteInscription|date('Y-m-d') }}<br>
         Nombre de place : {{ sortie.nbPlace }}<br>
-        Durée : {{ sortie.duree|date('h') }} heures et {{ sortie.duree|date('m') }} minutes<br>
+        Durée : {{ sortie.duree }} minutes<br>
         Description et infos : {{ sortie.description }}<br>
 
     </div>
@@ -19,7 +19,7 @@
         Ville organisatrice : {{ sortie.siteOrg }}<br>
         Lieu : {{ sortie.lieu }}<br>
         Rue : {{ sortie.lieu.rue }}<br>
-        Code postal : {{ sortie.lieu.codePostal }}<br>
+        Code postal : {{ sortie.lieu.ville.codePostal }}<br>
         Latitude : {{ sortie.lieu.latitude }}<br>
         Longitude : {{ sortie.lieu.longitude }}<br>
     </div>
