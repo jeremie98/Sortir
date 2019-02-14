@@ -24,9 +24,7 @@ class SortieType extends AbstractType
             ->add('nbPlace')
             ->add('duree')
             ->add('description')
-            ->add('siteOrg')
-            ->add('lieu')
-
+            ->add('userSite')
         ;
     }
 

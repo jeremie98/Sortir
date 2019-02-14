@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\SortieType;
+use App\Form\VilleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,11 +20,25 @@ class SortieController extends AbstractController
     {
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
+        // récuperation des villes
+        $repoVille = $this->getDoctrine()->getRepository(Ville::class);
+        $ville = $repoVille->findAll();
+        // récuperation du user pour affichage de ville organisatrice
+        $user = $this->getUser();
+        // récuperation des lieux
+        $repoLieu = $this->getDoctrine()->getRepository(Lieu::class);
+        $allLieu = $repoLieu->findAll();
+        /* TODO : récuperation de la ville selectionnée pour filtrer les lieux
+        $lieu = $repoLieu->findBy(
+            'ville' =>
+        );
+        */
         // récupération de l'id de l'utilisateur pour remplir le champ "Organisateur"
         $sortie->setOrganisateur($this->getUser());
         $sortieForm->handleRequest($req);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $sortie->setEtat('Creer');
             $em->persist($sortie);
             $em->flush();
 
@@ -30,6 +47,9 @@ class SortieController extends AbstractController
         }
         return $this->render('sortie/creer_sortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
+            'villes' => $ville,
+            'user' => $user,
+            'lieus' => $allLieu,
         ]);
     }
 

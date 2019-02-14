@@ -11,26 +11,41 @@
 
             <div class="col-6">
                 {{ form_row(sortieForm.nom ) }}
-                {{ form_row(sortieForm.dateSortie ) }}
-                {{ form_row(sortieForm.dateLimiteInscription ) }}
                 {{ form_row(sortieForm.nbPlace ) }}
                 {{ form_row(sortieForm.duree ) }}
                 {{ form_row(sortieForm.description ) }}
+                {{ form_row(sortieForm.dateSortie ) }}
+                {{ form_row(sortieForm.dateLimiteInscription ) }}
+                {{ form_row(sortieForm.userSite) }}
             </div>
 
             <div class="col-6">
-                {{ form_row(sortieForm.ville ) }}
-                {{ form_row(sortieForm.villeOrganisatrice ) }}
-                {{ form_row(sortieForm.lieu ) }}
-                {{ form_row(sortieForm.rue ) }}
-                {{ form_row(sortieForm.codePostal ) }}
-                {{ form_row(sortieForm.laptitude ) }}
-                {{ form_row(sortieForm.longitude ) }}
+                <div class="form-group">
+                    <label for="user_ville">Ville organisatrice :</label>
+                    <input class="form-control" id="disabledInput" type="text" name="" placeholder="{{ user.userSite().id }}"disabled >
+                </div>
+                <div class="form-group">
+                    <label for="ville_nom">Ville :</label>
+                    <select name="ville" id="ville" class="form-control">
+                        {% for ville in villes %}
+                            <option value="{{ ville.id }}">{{ ville.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lieu_nom">Lieu :</label>
+                    <select name="lieu" id="lieu" class="form-control">
+                        {% for lieu in lieus %}
+                            <option value="{{ lieu.nom }}">{{ lieu.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
-            {{ form_end(sortieForm) }}
-            <button class="btn">Enregistrer</button>
-
         </div>
+        <input type="submit" class="btn btn-success" value="Publier">
+        <input type="submit" class="btn btn-primary" value="Enregistrer">
+        <a href="{{ 'home' }}"><input type="submit" class="btn btn-outline-danger" value="Annuler"></a>
+        {{ form_end(sortieForm) }}
     </div>
 
 {% endblock %}
