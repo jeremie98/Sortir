@@ -64,7 +64,7 @@
                     <td>En cours</td>
                     <td>X</td>
                     <td>{{ sortie.organisateur }}</td>
-                    <td>Afficher - Se désister</td>
+                    <td><a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a> - Se désister</td>
                 </tr>
             {% endfor %}
         </table>
