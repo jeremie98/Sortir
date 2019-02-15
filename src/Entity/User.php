@@ -284,7 +284,7 @@ class User implements UserInterface
         return $this->sorties;
     }
 
-    public function getUserSite(): ?Site
+        public function getUserSite(): ?Site
     {
         return $this->userSite;
     }

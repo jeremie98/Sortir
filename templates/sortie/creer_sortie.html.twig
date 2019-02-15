@@ -3,11 +3,42 @@
 {% block title %}Sortir | Créer une sortie{% endblock %}
 
 {% block content %}
-    <h1>Créer une sortie</h1>
+    <div class="container">
 
-    {{ form_start(sortieForm) }}
-    {{ form_widget(sortieForm) }}
-    <button class="btn">Enregistrer</button>
-    {{ form_end(sortieForm) }}
+        <h3>Créer une sortie</h3>
+        {{ form_start(sortieForm) }}
+        <div class="row">
+
+            <div class="col-6">
+                {{ form_row(sortieForm.nom ) }}
+                {{ form_row(sortieForm.nbPlace ) }}
+                {{ form_row(sortieForm.duree ) }}
+                {{ form_row(sortieForm.description ) }}
+                {{ form_row(sortieForm.dateSortie ) }}
+                {{ form_row(sortieForm.dateLimiteInscription) }}
+            </div>
+
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="user_ville">Ville organisatrice :</label>
+                    <input class="form-control" id="disabledInput" type="text" name="site_id" placeholder="{{ user.getUserSite() }}"disabled >
+                </div>
+                <div class="form-group">
+                    <label for="lieu_nom">Villes :</label>
+                    <select name="lieu" id="lieu" class="form-control">
+                        {% for ville in villes %}
+                            <option value="{{ ville.nom }}">{{ ville.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {{ form_row(sortieForm.lieu ) }}
+            </div>
+        </div>
+        <button type="submit" action="sortie" class="btn btn-primary" value="publier">Publier</button>
+        <button type="submit" action="sortie" class="btn btn-success" value="save">Enregistrer</button>
+        <a class="btn btn-outline-danger" href="{{ path('home') }}">Annuler</a>
+
+        {{ form_end(sortieForm) }}
+    </div>
 
 {% endblock %}
