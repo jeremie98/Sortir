@@ -30,9 +30,24 @@ class SecurityController extends AbstractController
         $userRepo = $this->getDoctrine()->getRepository(User::class);
         $currentUser =$userRepo->find($this->getUser());
 
-
         return $this->render('user/user_profil.html.twig', [
             'currentUser' => $currentUser
+        ]);
+    }
+
+    /**
+     * @Route("/profil/{id}",
+     * name="a_profil",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET"}
+     *     )
+     */
+    public function showAnotherProfil(int $id){
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $user = $userRepository->find($id);
+
+        return $this->render('user/other_profil.html.twig', [
+            'user' => $user
         ]);
     }
 

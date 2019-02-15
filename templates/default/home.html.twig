@@ -67,7 +67,7 @@
                     <td>{{ sortie.nbPlace }}</td>
                     <td>{{ sortie.etat }}</td>
                     <td>X</td>
-                    <td><a href="#">{{ sortie.organisateur }}</a></td>
+                    <td><a href="{{ path('a_profil', {'id' : sortie.organisateur.id} ) }}">{{ sortie.organisateur }}</a></td>
                     <td>
                         <a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a>
                         -

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortir | Profil de {{ user.pseudo }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-5"><img src="{{ asset('img/profil/profil.jpg') }}" alt="profil" width="50%"></div>
+            <div class="col">
+                <h3>{{ user.pseudo }}</h3>
+                <div id="aProfil" >
+                    <div class="col-5">
+                        <p>Prenom : </p>
+
+                        <p>Nom : </p>
+
+                        <p>Téléphone : </p>
+
+                        <p>Email : </p>
+
+                        <p>Ville : </p>
+                    </div>
+
+                    <div>
+                        <p>{{ user.prenom }}</p>
+
+                        <p>{{ user.nom }}</p>
+
+                        <p>{{ user.telephone }}</p>
+
+                        <p>{{ user.email }}</p>
+
+                        <p>{{ user.ville }}</p>
+                    </div>
+                </div>
+
+                <a href="{{ path('home') }}"><button>Retour</button></a>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
