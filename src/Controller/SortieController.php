@@ -28,22 +28,24 @@ class SortieController extends AbstractController
         // récuperation des lieux
         $repoLieu = $this->getDoctrine()->getRepository(Lieu::class);
         $allLieu = $repoLieu->findAll();
+
         /* TODO : récuperation de la ville selectionnée pour filtrer les lieux
         $lieu = $repoLieu->findBy(
             'ville' =>
-        );
-        */
+        );*/
+
         // récupération de l'id de l'utilisateur pour remplir le champ "Organisateur"
         $sortie->setOrganisateur($this->getUser());
         $sortieForm->handleRequest($req);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $sortie->setEtat('Creer');
+            $sortie->setSiteOrg($this->getUser()->getUserSite());
             $em->persist($sortie);
             $em->flush();
 
-            $this->addFlash('success', 'Votre sortie a bien été enregistrée.');
-            return $this->redirectToRoute('default');
+            //$this->addFlash('success', 'Votre sortie a bien été enregistrée.');
+            return $this->redirectToRoute('home');
         }
         return $this->render('sortie/creer_sortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
