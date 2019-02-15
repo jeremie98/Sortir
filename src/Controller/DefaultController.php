@@ -61,8 +61,10 @@ class DefaultController extends AbstractController
         $currentUser->setNom($request->request->get('nom'));
         $currentUser->setTelephone($request->request->get('tel'));
         $password = $request->request->get('password');
-        $passwordEncoded = $passwordEncoder->encodePassword($currentUser, $password);
-        $currentUser->setPassword($passwordEncoded);
+        if(empty($password)){
+            $passwordEncoded = $passwordEncoder->encodePassword($currentUser, $password);
+            $currentUser->setPassword($passwordEncoded);
+        }
         $currentUser->setVille($request->request->get('ville'));
 
         $em = $this->getDoctrine()->getManager();
