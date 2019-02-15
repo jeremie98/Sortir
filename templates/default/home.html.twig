@@ -10,39 +10,40 @@
     <h2 class="h2Home">Filtrer les sorties</h2>
 
     <form method="post" action="{{ path('home') }}">
-    <div id="filtres">
-        <div id="filtresGeo">
-            <label for="site-select">Site : </label>
-            <select id="site-select" name="site-select">
-                <option value="">--Choississez un site--</option>
-                <option value="">Rezé</option>
-                <option value="">Saint-Herblain</option>
-            </select>
-            <br>
-            <label for="search-bar">Le nom de la sortie contient : </label>
-            <input type="search" id="search-bar" name="search-bar" aria-label="Search">
-            <br>
-            <label for="entre">Entre </label><input type="date" id="entre" name="dateEntre">
-            <label for="et">et</label><input type="date" id="et" name="dateEt">
-        </div>
-        <div id="lesCheckbox">
-            <div id="laCbx">
-                <input type="checkbox" id="sortOrg" name="sortOrg">
-                <input type="checkbox" id="sortInsc" name="sortInsc">
-                <input type="checkbox" id="sortPasInsc" name="sortPasInsc">
-                <input type="checkbox" id="sortPass" name="sortPass">
+        <div id="filtres">
+            <div id="filtresGeo">
+                <label for="site-select">Site : </label>
+                <select id="site-select" name="site-select">
+                    <option value="">-- Selectionnez un site --</option>
+                    {% for site in sites %}
+                        <option value="{{ site.id }}">{{ site.nom }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="search-bar">Le nom de la sortie contient : </label>
+                <input type="search" id="search-bar" name="search-bar" aria-label="Search">
+                <br>
+                <label for="entre">Entre </label><input type="date" id="entre" name="dateEntre">
+                <label for="et">et</label><input type="date" id="et" name="dateEt">
             </div>
-            <div id="lblCbx">
-                <label for="sortOrg">Sorties dont je suis l'organisateur/trice</label>
-                <label for="sortInsc">Sorties auxquelles je suis inscrit/e</label>
-                <label for="sortPasInsc">Sorties auxquelles je ne suis pas inscrit/e</label>
-                <label for="sortPass">Sorties passées</label>
+            <div id="lesCheckbox">
+                <div id="laCbx">
+                    <input type="checkbox" id="sortOrg" name="sortOrg">
+                    <input type="checkbox" id="sortInsc" name="sortInsc">
+                    <input type="checkbox" id="sortPasInsc" name="sortPasInsc">
+                    <input type="checkbox" id="sortPass" name="sortPass">
+                </div>
+                <div id="lblCbx">
+                    <label for="sortOrg">Sorties dont je suis l'organisateur/trice</label>
+                    <label for="sortInsc">Sorties auxquelles je suis inscrit/e</label>
+                    <label for="sortPasInsc">Sorties auxquelles je ne suis pas inscrit/e</label>
+                    <label for="sortPass">Sorties passées</label>
+                </div>
             </div>
-        </div>
 
-        <!-- Bouton Rechercher-->
-        <button>Rechercher</button>
-    </div>
+            <!-- Bouton Rechercher-->
+            <button>Rechercher</button>
+        </div>
     </form>
 
     <div id="tabSorties">
@@ -64,7 +65,7 @@
                     <td>{{ sortie.dateSortie|date("d/m/Y H:i") }}</td>
                     <td>{{ sortie.dateLimiteInscription|date("d/m/Y") }}</td>
                     <td>{{ sortie.nbPlace }}</td>
-                    <td>En cours</td>
+                    <td>{{ sortie.etat }}</td>
                     <td>X</td>
                     <td><a href="#">{{ sortie.organisateur }}</a></td>
                     <td>
