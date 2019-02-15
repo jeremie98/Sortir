@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Annulation;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,6 +59,63 @@ class SortieController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/sortie/annuler/{id}",
+     *     name="annuler",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET", "POST"}
+     *     )
+     */
+    public function annulerSortie(int $id){
+
+        $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $SortieRepository->find($id);
+
+        if (!$sortie) {
+
+            throw  $this->createNotFoundException("Cette sortie n'existe pas !");
+
+        }
+
+        return $this->render('sortie/annuler.html.twig',[
+            "sortie"=> $sortie
+        ]);
+
+
+    }
+
+    /**
+     * @Route("/annuler",
+     *     name="motif",
+     *     methods={"GET","POST"}
+     *     )
+     */
+    public function motif(Request $request){
+
+
+        $annulation = new Annulation();
+
+        $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $SortieRepository->find($request->request->get('id_sortie'));
+
+        $motif = $request->request->get('motif');
+
+
+        $annulation->setSortie($sortie);
+        $annulation->setMotif($motif);
+
+        $sortie->setEtat('Annulee');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($sortie);
+        $em->persist($annulation);
+        $em->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
+
     /**
      * @Route("/sortie/inscrire", name="inscrire",
      * methods={"POST"})

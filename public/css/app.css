@@ -71,14 +71,19 @@ footer{
 .h2Home{
     margin-left: 1em;
 }
-#info, #info2{
 
-    display: flex;
-    flex-direction: column;
-}
-#infoparent{
+#info{
+        margin-top: 5%;
+     display: flex;
+     flex-direction: row;
+    justify-content: space-between;
+    width: 40%;
+    margin-left: 30%;
+ }
 
-    display: flex;
-    flex-direction: row;
 
+#tableAfficher td {
+
+    border: thin solid #6495ed;
+    width: 50%;
 }

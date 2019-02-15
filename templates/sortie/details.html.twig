@@ -4,30 +4,31 @@
 
 
         <h1 class="d-flex justify-content-center"> AFFICHER UNE SORTIE</h1>
-<div id="infoparent">
-    <div id="info">
 
-        Nom de la sortie : {{ sortie.nom }}<br>
-        Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d') }}<br>
-        Date limite d'inscription : {{ sortie.dateLimiteInscription|date('Y-m-d') }}<br>
-        Nombre de place : {{ sortie.nbPlace }}<br>
-        Durée : {{ sortie.duree }} minutes<br>
-        Description et infos : {{ sortie.description }}<br>
+<div id="info" >
+    <div >
+
+        <h6>Nom de la sortie : {{ sortie.nom }}</h6><br>
+            <h6>Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d') }}</h6><br>
+                <h6>Date limite d'inscription : {{ sortie.dateLimiteInscription|date('Y-m-d') }}</h6><br>
+                    <h6>Nombre de place : {{ sortie.nbPlace }}</h6><br>
+                        <h6>Durée : {{ sortie.duree }} minutes</h6><br>
+                            <h6> Description et infos : {{ sortie.description }}</h6><br>
 
     </div>
-    <div id="info2">
-        Ville organisatrice : {{ sortie.siteOrg }}<br>
-        Lieu : {{ sortie.lieu }}<br>
-        Rue : {{ sortie.lieu.rue }}<br>
-        Code postal : {{ sortie.lieu.ville.codePostal }}<br>
-        Latitude : {{ sortie.lieu.latitude }}<br>
-        Longitude : {{ sortie.lieu.longitude }}<br>
+    <div >
+        <h6>Ville organisatrice : {{ sortie.siteOrg }}</h6><br>
+            <h6>Lieu : {{ sortie.lieu }}</h6><br>
+                <h6>Rue : {{ sortie.lieu.rue }}</h6><br>
+                    <h6>Code postal : {{ sortie.lieu.ville.codePostal }}</h6><br>
+                        <h6>Latitude : {{ sortie.lieu.latitude }}</h6><br>
+                            <h6>Longitude : {{ sortie.lieu.longitude }}</h6><br>
     </div>
 </div>
 
     <h2> Liste des participants</h2>
 
-    <table>
+    <table id="tableAfficher">
 
         <tr>
             <th>Pseudo</th>
@@ -43,13 +44,15 @@
 
     {% endfor %}
     </table>
-
+    <br>
+    <div>
     <form method="post" action={{ path('inscrire') }}>
 
         <input name="id_sortie" type="hidden" value="{{ sortie.id }}">
-        <button > s'incrire</button>
+        <button >S'INSCRIRE</button>
 
     </form>
+    </div>
 
 {% endblock %}
 

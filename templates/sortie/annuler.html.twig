@@ -2,6 +2,21 @@
 
 {% block content %}
 
+    <h1>Annuler une sortie</h1>
+
+    <form method="post" action="{{ path('motif') }}">
+    Nom de la sortie : {{ sortie.nom }}<br>
+    Date de la sortie : {{ sortie.dateSortie|date('Y-m-d') }}<br>
+    Ville organisatrice : {{ sortie.getLieu().nom }}<br>
+
+        <label>Motif</label>
+        <input name="id_sortie" type="hidden" value="{{ sortie.id }}">
+        <input name="motif" type="text"><br>
+
+        <button type="submit">Enregistrer</button>
+
+    </form>
+    <button>Annuler</button>
 
 
 {% endblock %}
