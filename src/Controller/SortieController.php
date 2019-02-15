@@ -101,18 +101,19 @@ class SortieController extends AbstractController
 
         $motif = $request->request->get('motif');
 
+
         $annulation->setSortie($sortie);
         $annulation->setMotif($motif);
 
+        $sortie->setEtat('Annulee');
+
         $em = $this->getDoctrine()->getManager();
+        $em->persist($sortie);
         $em->persist($annulation);
         $em->flush();
 
         return $this->redirectToRoute('home');
     }
-
-
-
 
 
     /**
