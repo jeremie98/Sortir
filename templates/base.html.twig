@@ -17,12 +17,15 @@
                         <h1>Sortir</h1>
                 </div>
                 <div id="menu">
-                    <a href="#">Villes</a>
-                    <a href="#">Sites</a>
+
                     <a href="{{ path('home') }}">Accueil</a>
                     <a href="{{ path('my_profil')}}">Mon profil</a>
                     <a href="{{ path('app_logout') }}">Se déconnecter</a>
-                    <a href="{{ path('app_register') }}">S'inscrire</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('ville') }}">Villes</a>
+                        <a href="#">Sites</a>
+                        <a href="{{ path('app_register') }}">Inscrire un utilisateur</a>
+                    {% endif %}
                 </div>
             </div>
         </header>

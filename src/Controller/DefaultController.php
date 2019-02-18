@@ -5,12 +5,10 @@ namespace App\Controller;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\Constraints\Date;
 
 class DefaultController extends AbstractController
 {
@@ -21,7 +19,6 @@ class DefaultController extends AbstractController
     {
         // récupération de l'utilisateur connecté
         $user = $this->getUser();
-
         // récupération de toutes les sorties
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sorties = $sortieRepository->findAll();

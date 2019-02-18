@@ -69,6 +69,9 @@
                     <td>X</td>
                     <td><a href="{{ path('a_profil', {'id' : sortie.organisateur.id} ) }}">{{ sortie.organisateur }}</a></td>
                     <td>
+                        {% if participant.id == sortie.organisateur.id %}
+                            <a href="{{ path('annuler', {'id' : sortie.id} ) }}">Annuler -</a>
+                        {% endif %}
                         <a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a>
                         -
                         <a href="{{ path('desister', {'id' : sortie.id}) }}">Se désister</a>

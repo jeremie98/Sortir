@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortir | Ville{% endblock %}
+
+{% block content %}
+    <h1> GERER LES VILLES </h1>
+
+    <p> Filtrer les villes </p>
+    <form method="post" action="">
+        <label> Le nom contient : </label>
+        <input type="text" name="ville">
+        <button type="submit"> RECHERCHER</button>
+
+    </form>
+
+    <table id="tableHome">
+        <tr>
+            <th>Ville</th>
+            <th>Code postal</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for ville in villes %}
+            <tr>
+                <td>{{ ville.nom }}</td>
+                <td>{{ ville.codePostal }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+{% endblock %}
