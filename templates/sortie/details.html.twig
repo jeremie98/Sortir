@@ -9,7 +9,7 @@
     <div >
 
         <h6>Nom de la sortie : {{ sortie.nom }}</h6><br>
-            <h6>Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d') }}</h6><br>
+            <h6>Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d  H:i') }}</h6><br>
                 <h6>Date limite d'inscription : {{ sortie.dateLimiteInscription|date('Y-m-d') }}</h6><br>
                     <h6>Nombre de place : {{ sortie.nbPlace }}</h6><br>
                         <h6>Durée : {{ sortie.duree }} minutes</h6><br>

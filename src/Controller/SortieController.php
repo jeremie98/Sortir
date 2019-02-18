@@ -40,7 +40,7 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($req);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $sortie->setEtat('Creer');
+            $sortie->setEtat('En création');
             $sortie->setSiteOrg($this->getUser()->getUserSite());
             $em->persist($sortie);
             $em->flush();
@@ -89,54 +89,38 @@ class SortieController extends AbstractController
      *     methods={"GET", "POST"}
      *     )
      */
-    public function annulerSortie(int $id){
+    public function annulerSortie(int $id, Request $request){
 
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $SortieRepository->find($id);
+        $annulation = new Annulation();
 
+        if($this->getUser() != $sortie->getOrganisateur()){
+            throw $this->createAccessDeniedException("Cette sortie ne vous appartient pas !");
+        }
         if (!$sortie) {
 
             throw  $this->createNotFoundException("Cette sortie n'existe pas !");
 
         }
 
+        if($request->request->get('motif')){
+            $annulation->setSortie($sortie);
+            $annulation->setMotif($request->request->get('motif'));
+            $sortie->setEtat('Annulée');
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($sortie);
+            $em->persist($annulation);
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
         return $this->render('sortie/annuler.html.twig',[
             "sortie"=> $sortie
         ]);
-
-
     }
-
-    /**
-     * @Route("/annuler",
-     *     name="motif",
-     *     methods={"GET","POST"}
-     *     )
-     */
-    public function motif(Request $request){
-
-
-        $annulation = new Annulation();
-
-        $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sortie = $SortieRepository->find($request->request->get('id_sortie'));
-
-        $motif = $request->request->get('motif');
-
-
-        $annulation->setSortie($sortie);
-        $annulation->setMotif($motif);
-
-        $sortie->setEtat('Annulee');
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($sortie);
-        $em->persist($annulation);
-        $em->flush();
-
-        return $this->redirectToRoute('home');
-    }
-
 
     /**
      * @Route("/sortie/inscrire", name="inscrire",

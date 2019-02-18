@@ -5,12 +5,10 @@ namespace App\Controller;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\Constraints\Date;
 
 class DefaultController extends AbstractController
 {
@@ -21,16 +19,16 @@ class DefaultController extends AbstractController
     {
         // récupération de l'utilisateur connecté
         $user = $this->getUser();
-
         // récupération de toutes les sorties
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findSortiesPlusRecentes();
 
         // récupération des sites pour la liste déroulante
         $siteRepository = $this->getDoctrine()->getRepository(Site::class);
         $sites = $siteRepository->findAll();
 
-        // filtres sur les sorties
+
+        /* Filtres sur les sorties*/
 
         if($request->request->get("site-select")){
             // site sélectionné
@@ -63,8 +61,14 @@ class DefaultController extends AbstractController
             $sorties = $this->getUser()->getSorties();
         }
         /*if($request->request->get("sortPasInsc")){
-            $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-            $sorties = $sortieRepository->findSortiesPasInscrit();
+
+            $sortiesP = null;
+            foreach($sorties as $sortie){
+                if(in_array($user, $sorties)){
+                    $sortiesP = $sortie;
+                }
+            }
+            $sorties = $sortiesP;
         }*/
         if($request->request->get("sortPass")){
             $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
