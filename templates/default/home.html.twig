@@ -64,17 +64,35 @@
                     <td>{{ sortie.nom }}</td>
                     <td>{{ sortie.dateSortie|date("d/m/Y H:i") }}</td>
                     <td>{{ sortie.dateLimiteInscription|date("d/m/Y") }}</td>
-                    <td>{{ sortie.nbPlace }}</td>
+                    <td>{{ sortie.participants|length }}/{{ sortie.nbPlace }}</td>
                     <td>{{ sortie.etat }}</td>
-                    <td>X</td>
+                    <td>
+                        {% if participant in sortie.participants %}
+                            X
+                        {% endif %}
+                    </td>
                     <td><a href="{{ path('a_profil', {'id' : sortie.organisateur.id} ) }}">{{ sortie.organisateur }}</a></td>
                     <td>
-                        {% if participant.id == sortie.organisateur.id %}
-                            <a href="{{ path('annuler', {'id' : sortie.id} ) }}">Annuler -</a>
+                        {% if sortie.etat == 'Ouvert' %}
+                            <a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a>
                         {% endif %}
-                        <a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a>
-                        -
-                        <a href="{{ path('desister', {'id' : sortie.id}) }}">Se désister</a>
+
+                        {% if sortie.etat == 'Ouvert' and participant.id == sortie.organisateur.id %}
+                            <a href="{{ path('annuler', {'id' : sortie.id} ) }}">- Annuler</a>
+                        {% endif %}
+
+                        {% if sortie.etat == 'En cours' or sortie.etat == 'Passée' %}
+                            <a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a>
+                        {% endif %}
+
+                        {% if participant in sortie.participants %}
+                            <a href="{{ path('desister', {'id' : sortie.id}) }}">- Se désister</a>
+                        {% endif %}
+
+                        {% if participant.id == sortie.organisateur.id and sortie.etat == 'En création'%}
+                            <a href="#">Modifier</a>
+                            <a href="#">- Publier</a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

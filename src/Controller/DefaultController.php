@@ -21,13 +21,14 @@ class DefaultController extends AbstractController
         $user = $this->getUser();
         // récupération de toutes les sorties
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findSortiesPlusRecentes();
 
         // récupération des sites pour la liste déroulante
         $siteRepository = $this->getDoctrine()->getRepository(Site::class);
         $sites = $siteRepository->findAll();
 
-        // filtres sur les sorties
+
+        /* Filtres sur les sorties*/
 
         if($request->request->get("site-select")){
             // site sélectionné
@@ -60,8 +61,14 @@ class DefaultController extends AbstractController
             $sorties = $this->getUser()->getSorties();
         }
         /*if($request->request->get("sortPasInsc")){
-            $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-            $sorties = $sortieRepository->findSortiesPasInscrit();
+
+            $sortiesP = null;
+            foreach($sorties as $sortie){
+                if(in_array($user, $sorties)){
+                    $sortiesP = $sortie;
+                }
+            }
+            $sorties = $sortiesP;
         }*/
         if($request->request->get("sortPass")){
             $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
