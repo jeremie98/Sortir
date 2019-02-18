@@ -94,6 +94,10 @@ class SortieController extends AbstractController
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $SortieRepository->find($id);
 
+        if($this->getUser() != $sortie->getOrganisateur()){
+            throw $this->createAccessDeniedException("Cette sortie ne vous appartient pas !");
+        }
+
         if (!$sortie) {
 
             throw  $this->createNotFoundException("Cette sortie n'existe pas !");
