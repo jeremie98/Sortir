@@ -39,6 +39,14 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findSortiesNonArchivees(){
+        $jours = date('Y:m:d H:i:s');
+        return $this->createQueryBuilder('s')
+            ->andWhere("s.dateSortie >= DATE_SUB('$jours', INTERVAL 1 MONTH)")
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findSortiesPasInscrit()
     {
         return $this->createQueryBuilder('s')

@@ -21,6 +21,10 @@ class DefaultController extends AbstractController
         // récupération de l'utilisateur connecté
         $user = $this->getUser();
 
+        $archiveRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $archive = $archiveRepository->findSortiesNonArchivees();
+
+        dd($archive);
         // récupération de toutes les sorties
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sorties = $sortieRepository->findAll();
