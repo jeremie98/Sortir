@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -108,7 +107,7 @@ class DefaultController extends AbstractController
         $currentUser->setNom($request->request->get('nom'));
         $currentUser->setTelephone($request->request->get('tel'));
         $password = $request->request->get('password');
-        if(empty($password)){
+        if(!empty($password)){
             $passwordEncoded = $passwordEncoder->encodePassword($currentUser, $password);
             $currentUser->setPassword($passwordEncoded);
         }
