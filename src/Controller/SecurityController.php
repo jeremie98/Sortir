@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Entity\User;
 
 class SecurityController extends AbstractController
 {
@@ -24,17 +24,41 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/my_profil", name="user_profil")
+     * @Route("/my_profil", name="my_profil");
      */
-    public function showUserProfil(int $id) {
+    public function showMyProfil() {
         $userRepo = $this->getDoctrine()->getRepository(User::class);
-        $currentUser =$userRepo->find($id);
+        $currentUser =$userRepo->find($this->getUser());
 
-
-        return $this->render('security/user_profil.html.twig', [
+        return $this->render('user/user_profil.html.twig', [
             'currentUser' => $currentUser
         ]);
     }
+
+    /**
+     * @Route("/profil/{id}",
+     * name="a_profil",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET"}
+     *     )
+     */
+    public function showAnotherProfil(int $id){
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $user = $userRepository->find($id);
+
+        return $this->render('user/other_profil.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/déconnexion", name="app_logout")
+     */
+    public function logout(){}
+
+
+
+
 
 
 }

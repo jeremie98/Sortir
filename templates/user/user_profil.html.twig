@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortir | Mon profil{% endblock %}
+
+{% block content %}
+    <form  class="container" method="post" action="update_my_profil">
+        <div class="row">
+            <div class="col-5">
+                <img src="{{ asset('img/profil/profil.jpg') }}" alt="profil" width="50%">
+                <input type="file">
+            </div>
+            <div class="col-5">
+                <h3>Mon profil</h3>
+                <label for="inputUsername">Pseudo</label>
+                <input name="pseudo" type="text" id="username" class="form-control"  value="{{ currentUser.pseudo }}">
+
+                <label for="inputPrenom">Prenom</label>
+                <input name="prenom" type="text" id="prenom" class="form-control" value="{{ currentUser.prenom }}">
+
+                <label for="nom">Nom</label>
+                <input name="nom" type="text" id="nom" class="form-control" value="{{ currentUser.nom }}">
+
+                <label for="inputTel">Téléphone</label>
+                <input name="tel" type="text" id="tel" class="form-control" value="{{ currentUser.telephone }}">
+
+                <label for="inputPassword">Password</label>
+                <input name="password" type="text" id="password" class="form-control">
+
+                <label for="inputVille">Ville</label>
+                <input name="ville" type="text" id="ville" class="form-control" value="{{ currentUser.ville }}"><br>
+                <button class="btn btn-primary" type="submit">Modifier</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

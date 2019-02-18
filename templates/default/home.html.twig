@@ -3,29 +3,83 @@
 {% block content %}
 
     <div id="datejour">
-        Date du jour :  <br>
+        Date du jour :  {{ "now"|date("d/m/Y") }}<br>
         Participant : {{ participant.prenom }} {{ participant.nom }}
     </div>
 
-    <h2>Filtrer les sorties</h2>
-    <div id="filtres">
-        <div>
-            <label for="site">Site</label><br>
-            <label for="search">Le nom de la sortie contient</label><br>
-            <label for="entre">Entre</label>
-            <label for="et">et</label>
-        </div>
-        <div id="lesCheckbox">
-            <input type="checkbox" id="sortOrg" name="sortOrg"><label for="sortOrg">Sorties dont je suis l'organisateur/trice</label>
-            <input type="checkbox" id="sortInsc" name="sortInsc"><label for="sortInsc">Sorties auxquelles je suis inscrit/e</label>
-            <input type="checkbox" id="sortPasInsc" name="sortPasInsc"><label for="sortPasInsc">Sorties auxquelles je ne suis pas inscrit/e</label>
-            <input type="checkbox" id="sortPass" name="sortPass"><label for="sortPass">Sorties passées</label>
-        </div>
+    <h2 class="h2Home">Filtrer les sorties</h2>
 
-        <!-- Bouton Rechercher-->
-        <button name="rechercher">Rechercher</button>
+    <form method="post" action="{{ path('home') }}">
+        <div id="filtres">
+            <div id="filtresGeo">
+                <label for="site-select">Site : </label>
+                <select id="site-select" name="site-select">
+                    <option value="">-- Selectionnez un site --</option>
+                    {% for site in sites %}
+                        <option value="{{ site.id }}">{{ site.nom }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="search-bar">Le nom de la sortie contient : </label>
+                <input type="search" id="search-bar" name="search-bar" aria-label="Search">
+                <br>
+                <label for="entre">Entre </label><input type="date" id="entre" name="dateEntre">
+                <label for="et">et</label><input type="date" id="et" name="dateEt">
+            </div>
+            <div id="lesCheckbox">
+                <div id="laCbx">
+                    <input type="checkbox" id="sortOrg" name="sortOrg">
+                    <input type="checkbox" id="sortInsc" name="sortInsc">
+                    <input type="checkbox" id="sortPasInsc" name="sortPasInsc">
+                    <input type="checkbox" id="sortPass" name="sortPass">
+                </div>
+                <div id="lblCbx">
+                    <label for="sortOrg">Sorties dont je suis l'organisateur/trice</label>
+                    <label for="sortInsc">Sorties auxquelles je suis inscrit/e</label>
+                    <label for="sortPasInsc">Sorties auxquelles je ne suis pas inscrit/e</label>
+                    <label for="sortPass">Sorties passées</label>
+                </div>
+            </div>
 
+            <!-- Bouton Rechercher-->
+            <button>Rechercher</button>
+        </div>
+    </form>
+
+    <div id="tabSorties">
+        <table id="tableHome">
+            <tr>
+                <th>Nom de la sortie</th>
+                <th>Date de la sortie</th>
+                <th>Clôture</th>
+                <th >inscrits/places</th>
+                <th>Etat</th>
+                <th>Inscrit</th>
+                <th>Organisateur</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for sortie in sorties %}
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td>{{ sortie.dateSortie|date("d/m/Y H:i") }}</td>
+                    <td>{{ sortie.dateLimiteInscription|date("d/m/Y") }}</td>
+                    <td>{{ sortie.nbPlace }}</td>
+                    <td>{{ sortie.etat }}</td>
+                    <td>X</td>
+                    <td><a href="{{ path('a_profil', {'id' : sortie.organisateur.id} ) }}">{{ sortie.organisateur }}</a></td>
+                    <td>
+                        <a href="{{ path('afficher', {'id' : sortie.id} ) }}">Afficher</a>
+                        -
+                        <a href="{{ path('desister', {'id' : sortie.id}) }}">Se désister</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
+
+    <a href="{{ path('createsortie') }}"> <button id="btnCreateSortie">Créer une sortie</button></a>
+
 {% endblock %}
 
 {% block title %}Sortir | Accueil{% endblock %}

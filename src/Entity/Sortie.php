@@ -24,64 +24,29 @@ class Sortie
     private $nom;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     private $dateSortie;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     private $dateLimiteInscription;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $nbPlace;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $duree;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", nullable=false)
      */
     private $description;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $ville;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $villeOrganisatrice;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $lieu;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $rue;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $codePostal;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $laptitude;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $longitude;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sorties")
@@ -93,6 +58,28 @@ class Sortie
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="sorties")
      */
     private $participants;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $siteOrg;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lieu;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Annulation", mappedBy="sortie", cascade={"persist", "remove"})
+     */
+    private $annulation;
 
     public function __construct()
     {
@@ -152,12 +139,12 @@ class Sortie
         return $this;
     }
 
-    public function getDuree(): ?\DateTimeInterface
+    public function getDuree(): ?int
     {
         return $this->duree;
     }
 
-    public function setDuree(\DateTimeInterface $duree): self
+    public function setDuree(int $duree): self
     {
         $this->duree = $duree;
 
@@ -172,90 +159,6 @@ class Sortie
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getVilleOrganisatrice(): ?string
-    {
-        return $this->villeOrganisatrice;
-    }
-
-    public function setVilleOrganisatrice(string $villeOrganisatrice): self
-    {
-        $this->villeOrganisatrice = $villeOrganisatrice;
-
-        return $this;
-    }
-
-    public function getLieu(): ?string
-    {
-        return $this->lieu;
-    }
-
-    public function setLieu(string $lieu): self
-    {
-        $this->lieu = $lieu;
-
-        return $this;
-    }
-
-    public function getRue(): ?string
-    {
-        return $this->rue;
-    }
-
-    public function setRue(string $rue): self
-    {
-        $this->rue = $rue;
-
-        return $this;
-    }
-
-    public function getCodePostal(): ?string
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(?string $codePostal): self
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    public function getLaptitude(): ?string
-    {
-        return $this->laptitude;
-    }
-
-    public function setLaptitude(?string $laptitude): self
-    {
-        $this->laptitude = $laptitude;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?string
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(?string $longitude): self
-    {
-        $this->longitude = $longitude;
 
         return $this;
     }
@@ -293,6 +196,60 @@ class Sortie
     {
         if ($this->participants->contains($participant)) {
             $this->participants->removeElement($participant);
+        }
+
+        return $this;
+    }
+
+    public function getSiteOrg(): ?Site
+    {
+        return $this->siteOrg;
+    }
+
+    public function setSiteOrg(?Site $siteOrg): self
+    {
+        $this->siteOrg = $siteOrg;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getAnnulation(): ?Annulation
+    {
+        return $this->annulation;
+    }
+
+    public function setAnnulation(?Annulation $annulation): self
+    {
+        $this->annulation = $annulation;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newSortie = $annulation === null ? null : $this;
+        if ($newSortie !== $annulation->getSortie()) {
+            $annulation->setSortie($newSortie);
         }
 
         return $this;

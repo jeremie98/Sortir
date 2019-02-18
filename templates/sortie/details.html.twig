@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+
+        <h1 class="d-flex justify-content-center"> AFFICHER UNE SORTIE</h1>
+
+<div id="info" >
+    <div >
+
+        <h6>Nom de la sortie : {{ sortie.nom }}</h6><br>
+            <h6>Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d') }}</h6><br>
+                <h6>Date limite d'inscription : {{ sortie.dateLimiteInscription|date('Y-m-d') }}</h6><br>
+                    <h6>Nombre de place : {{ sortie.nbPlace }}</h6><br>
+                        <h6>Durée : {{ sortie.duree }} minutes</h6><br>
+                            <h6> Description et infos : {{ sortie.description }}</h6><br>
+
+    </div>
+    <div >
+        <h6>Ville organisatrice : {{ sortie.siteOrg }}</h6><br>
+            <h6>Lieu : {{ sortie.lieu }}</h6><br>
+                <h6>Rue : {{ sortie.lieu.rue }}</h6><br>
+                    <h6>Code postal : {{ sortie.lieu.ville.codePostal }}</h6><br>
+                        <h6>Latitude : {{ sortie.lieu.latitude }}</h6><br>
+                            <h6>Longitude : {{ sortie.lieu.longitude }}</h6><br>
+    </div>
+</div>
+
+    <h2> Liste des participants</h2>
+
+    <table id="tableAfficher">
+
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+        </tr>
+        {% for participant in participants %}
+
+        <tr>
+
+            <td>{{ participant.pseudo }}</td>
+            <td>{{ participant.prenom }} {{ participant.nom }}</td>
+        </tr>
+
+    {% endfor %}
+    </table>
+    <br>
+    <div>
+    <form method="post" action={{ path('inscrire') }}>
+
+        <input name="id_sortie" type="hidden" value="{{ sortie.id }}">
+        <button >S'INSCRIRE</button>
+
+    </form>
+    </div>
+
+{% endblock %}
+
+
+{% block title %}Sortir | {{ sortie.nom }}{% endblock %}

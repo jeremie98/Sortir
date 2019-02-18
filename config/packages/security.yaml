@@ -1,4 +1,5 @@
 security:
+
     encoders:
         App\Entity\User:
             algorithm: argon2i
@@ -18,6 +19,17 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginAuthenticator
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 2592000
+                path: /
+
+            logout:
+                path: app_logout
+                target: /
+
+
             # activate different ways to authenticate
 
             # http_basic: true
@@ -31,3 +43,4 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/home, roles: ROLE_USER }

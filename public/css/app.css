@@ -8,6 +8,7 @@ footer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding : 1em;
 }
 #title{
     display: flex;
@@ -26,8 +27,72 @@ footer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 2em;
+}
+#filtres button{
+    width: 15em;
+    height: 5em;
+}
+#filtresGeo{
+    width: 45%;
+}
+#filtresGeo select, input{
+    margin-left: 10%;
 }
 #lesCheckbox{
     display: flex;
+    flex-direction: row;
+}
+#laCbx, #lblCbx{
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+#tabSorties{
+    margin-left: 5% ;
+}
+#tableHome{
+    border : medium solid black;
+    border-collapse: separate;
+    width: 95%;
+    text-align: center;
+}
+#tableHome th{
+    border : thin solid black;
+    background-color: #AAAAAA;
+}
+#tableHome td{
+    border: thin solid #007bff;
+}
+#btnCreateSortie{
+    padding: 0.5em;
+    margin: 2% 0% 0% 5%;
+    width: 15%;
+}
+.h2Home{
+    margin-left: 1em;
+}
+
+#info{
+        margin-top: 5%;
+     display: flex;
+     flex-direction: row;
+    justify-content: space-between;
+    width: 40%;
+    margin-left: 30%;
+ }
+#aProfil{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.col1, col2{
+    display: flex;
+    flex-direction: column;
+}
+#tableAfficher td {
+
+    border: thin solid #6495ed;
+    width: 50%;
 }
