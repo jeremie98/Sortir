@@ -9,7 +9,7 @@
     <div >
 
         <h6>Nom de la sortie : {{ sortie.nom }}</h6><br>
-            <h6>Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d') }}</h6><br>
+            <h6>Date et heure de la sortie : {{ sortie.dateSortie|date('Y-m-d  H:i') }}</h6><br>
                 <h6>Date limite d'inscription : {{ sortie.dateLimiteInscription|date('Y-m-d') }}</h6><br>
                     <h6>Nombre de place : {{ sortie.nbPlace }}</h6><br>
                         <h6>Durée : {{ sortie.duree }} minutes</h6><br>
@@ -26,32 +26,25 @@
     </div>
 </div>
 
-    <h2> Liste des participants</h2>
+    <div id="listParticip">
+        <h2> Liste des participants</h2>
 
-    <table id="tableAfficher">
+        <table id="tableAfficher">
 
-        <tr>
-            <th>Pseudo</th>
-            <th>Nom</th>
-        </tr>
-        {% for participant in participants %}
+            <tr>
+                <th>Pseudo</th>
+                <th>Nom</th>
+            </tr>
+            {% for participant in participants %}
 
-        <tr>
+                <tr>
 
-            <td>{{ participant.pseudo }}</td>
-            <td>{{ participant.prenom }} {{ participant.nom }}</td>
-        </tr>
+                    <td>{{ participant.pseudo }}</td>
+                    <td><a href="{{ path('a_profil', {'id' : participant.id} ) }}">{{ participant.prenom }} {{ participant.nom }}</td>
+                </tr>
 
-    {% endfor %}
-    </table>
-    <br>
-    <div>
-    <form method="post" action={{ path('inscrire') }}>
-
-        <input name="id_sortie" type="hidden" value="{{ sortie.id }}">
-        <button >S'INSCRIRE</button>
-
-    </form>
+            {% endfor %}
+        </table>
     </div>
 
 {% endblock %}

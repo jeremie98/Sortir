@@ -5,12 +5,12 @@ namespace App\Controller;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends AbstractController
 {
@@ -19,21 +19,50 @@ class DefaultController extends AbstractController
      */
     public function home(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
         // récupération de l'utilisateur connecté
         $user = $this->getUser();
 
 
-        $archiveRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        /*$archiveRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $archive= $archiveRepository->findSortiesNonArchivees(new \DateTime('now'));
+*/
         // récupération de toutes les sorties
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findSortiesPlusRecentes();
 
         // récupération des sites pour la liste déroulante
         $siteRepository = $this->getDoctrine()->getRepository(Site::class);
         $sites = $siteRepository->findAll();
 
-        // filtres sur les sorties
+
+        /* GESTION DES ETATS EN FONCTION DE LA DATE */
+        $dateJour = new \DateTime('now');
+
+        foreach($sorties as $sortie)
+        {
+            if($sortie->getDateLimiteInscription() < $dateJour and $sortie->getDateSortie() > $dateJour)
+            {
+                $sortie->setEtat("Clôturée");
+                $em->persist($sortie);
+            }
+            if($sortie->getDateSortie() < $dateJour)
+            {
+                $sortie->setEtat("Passée");
+                $em->persist($sortie);
+            }
+            if($sortie->getDateSortie()->format("Y-m-d") == $dateJour->format("Y-m-d"))
+            {
+                $sortie->setEtat("En cours");
+                $em->persist($sortie);
+            }
+
+        }
+        $em->flush();
+
+
+        /* Filtres sur les sorties*/
 
         if($request->request->get("site-select")){
             // site sélectionné
@@ -66,8 +95,14 @@ class DefaultController extends AbstractController
             $sorties = $this->getUser()->getSorties();
         }
         /*if($request->request->get("sortPasInsc")){
-            $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-            $sorties = $sortieRepository->findSortiesPasInscrit();
+
+            $sortiesP = null;
+            foreach($sorties as $sortie){
+                if(in_array($user, $sorties)){
+                    $sortiesP = $sortie;
+                }
+            }
+            $sorties = $sortiesP;
         }*/
         if($request->request->get("sortPass")){
             $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
@@ -76,7 +111,7 @@ class DefaultController extends AbstractController
 
         return $this->render('default/home.html.twig', [
             'controller_name' => 'DefaultController',
-            'participant' => $user,
+            'user' => $user,
             'sorties' => $sorties,
             'sites' => $sites
         ]);
