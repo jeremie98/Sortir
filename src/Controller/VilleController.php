@@ -53,6 +53,7 @@ class VilleController extends AbstractController
 
 
         return $this->render('ville/ville.html.twig', [
+            'controller_name' => 'VilleController',
             'villes' => $villes
         ]);
     }
@@ -74,7 +75,5 @@ class VilleController extends AbstractController
         return $this->redirectToRoute('ville');
 
     }
-
-
 
 }
