@@ -140,7 +140,7 @@ class DefaultController extends AbstractController
         $currentUser->setNom($request->request->get('nom'));
         $currentUser->setTelephone($request->request->get('tel'));
         $password = $request->request->get('password');
-        if(empty($password)){
+        if(!empty($password)){
             $passwordEncoded = $passwordEncoder->encodePassword($currentUser, $password);
             $currentUser->setPassword($passwordEncoded);
         }
