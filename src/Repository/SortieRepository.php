@@ -48,6 +48,7 @@ class SortieRepository extends ServiceEntityRepository
             ->orderBy('s.dateSortie', 'DESC')
             ->getQuery()
             ->getResult();
+
     }
 
     public function findSortiesNonArchivees(DateTime $jours){
