@@ -23,7 +23,7 @@
                     <a href="{{ path('app_logout') }}">Se déconnecter</a>
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('ville') }}">Villes</a>
-                        <a href="#">Sites</a>
+                        <a href="{{ path('site') }}">Sites</a>
                         <a href="{{ path('app_register') }}">Inscrire un utilisateur</a>
                     {% endif %}
                 </div>

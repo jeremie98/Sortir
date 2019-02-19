@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortir | Ville{% endblock %}
+
+{% block content %}
+
+    <script>
+
+        function demoVisibility() {
+            document.getElementById("myP2").style.visibility = "hidden";
+        }
+
+        function demoVisibility2(id) {
+            document.getElementById("id1").value=id;
+            document.getElementById("myP2").style.visibility = "visible";
+        }
+    </script>
+    <h1> GERER LES SITES </h1>
+
+
+
+    <p> Filtrer les sites </p>
+    <form method="post" action="{{ 'site' }}">
+        <label> Le nom contient : </label>
+        <input type="text" name="site">
+        <button type="submit"> RECHERCHER</button>
+
+    </form>
+
+    <table id="tableHome">
+        <tr>
+            <th>Site</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for site in sites %}
+            <tr>
+                <td>{{ site.nom }}</td>
+                <td><a onclick="demoVisibility2({{ site.id }})" href="#">Modifier</a> ---
+                    <a  href="{{ path('supprSite', {'id' : site.id} ) }}">Supprimer</a> </td>
+            </tr>
+
+        {% endfor %}
+        <tr>
+            <form method="post" action="{{ 'site' }}">
+                <td><input type="text" name="nom"></td>
+                <td><button type="submit">Ajouter</button></td>
+            </form>
+        </tr>
+    </table>
+    {# <input type="button" onclick="demoVisibility()" value="Hide text with visibility property">
+     <input type="button" onclick="demoVisibility2()" value="Hide text with visibility property">#}
+
+    <div class="test">
+
+        <form  id="myP2" method="post" >
+
+            <input type="text" name="id" id="id1" value="">
+
+            <label>Nouveau nom</label>
+
+            <input type="text" name="newNom">
+
+            <button type="submit" name="modifier"> Modifier </button>
+
+        </form>
+    </div>
+{% endblock %}

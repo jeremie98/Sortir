@@ -22,19 +22,19 @@ class SiteRepository extends ServiceEntityRepository
     // /**
     //  * @return Site[] Returns an array of Site objects
     //  */
-    /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('s.nom like :val')
+            ->setParameter('val', "%$value%")
             ->orderBy('s.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Site
