@@ -3,11 +3,17 @@
 {% block title %}Sortir | Mon profil{% endblock %}
 
 {% block content %}
+    <form action="photo" >
+        <input type="file" name="photo">
+        <button type="submit"> ALLER SALOPE </button>
+
+    </form>
     <form  class="container" method="post" action="update_my_profil">
         <div class="row">
             <div class="col-5">
                 <img src="{{ asset('img/profil/profil.jpg') }}" alt="profil" width="50%">
-                <input type="file">
+
+
             </div>
             <div class="col-5">
                 <h3>Mon profil</h3>
