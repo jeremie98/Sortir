@@ -39,13 +39,17 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findSortiesNonArchivees(){
-        $jours = date('Y:m:d H:i:s');
+    public function findSortiesNonArchivees(DateTime $jours){
+        //$jours = \date('y/m/d H:i');
+        // requete sql : UPDATE sortie SET etat = 'Archivé' WHERE date_sortie <= DATE_SUB(NOW(), INTERVAL 1 MONTH)
         return $this->createQueryBuilder('s')
-            ->andWhere("s.dateSortie >= DATE_SUB('$jours', INTERVAL 1 MONTH)")
+            ->setParameter('s.etat', 'Archivée')
+            ->where("s.dateSortie <= DATE_SUB('.$jours.', 1, 'MONTH')")
             ->getQuery()
             ->getResult();
+
     }
+
 
     public function findSortiesPasInscrit()
     {

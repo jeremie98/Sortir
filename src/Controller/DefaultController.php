@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends AbstractController
 {
@@ -21,10 +22,9 @@ class DefaultController extends AbstractController
         // récupération de l'utilisateur connecté
         $user = $this->getUser();
 
-        $archiveRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $archive = $archiveRepository->findSortiesNonArchivees();
 
-        dd($archive);
+        $archiveRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $archive= $archiveRepository->findSortiesNonArchivees(new \DateTime('now'));
         // récupération de toutes les sorties
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sorties = $sortieRepository->findAll();
