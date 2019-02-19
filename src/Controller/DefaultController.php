@@ -98,6 +98,28 @@ class DefaultController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/photo", name="photo")
+     */
+    public function photo(Request $request){
+        $file = $this->getUser()->getPhotoPath($request->request->get('photo'));
+        dd($file);
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+        $file->move(
+            $this->getParameter('image_directory'),$fileName
+        );
+
+        $this->getUser()->setPhotoPath($fileName);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($this->getUser());
+        $em->flush();
+
+        return $this->render('ville/ville.html.twig');
+
+    }
+
     /**
      * @Route("/update_my_profil", name="update_my_profil"),
      * ;

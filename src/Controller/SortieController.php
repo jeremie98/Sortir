@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
+
+
+
     /**
      * @Route("/sortie/create", name="createsortie")
      */
