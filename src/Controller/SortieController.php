@@ -123,13 +123,15 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/inscrire", name="inscrire",
-     * methods={"POST"})
+     * @Route("/sortie/inscrire/{id}",
+     *      name="inscrire",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET"})
      */
-    public function inscrire(Request $request)
+    public function inscrire(int $id)
     {
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sortie = $SortieRepository->find($request->request->get('id_sortie'));
+        $sortie = $SortieRepository->find($id);
 
         $sortie->addParticipant($this->getUser());
 

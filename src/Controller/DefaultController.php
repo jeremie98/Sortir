@@ -77,7 +77,7 @@ class DefaultController extends AbstractController
 
         return $this->render('default/home.html.twig', [
             'controller_name' => 'DefaultController',
-            'participant' => $user,
+            'user' => $user,
             'sorties' => $sorties,
             'sites' => $sites
         ]);
