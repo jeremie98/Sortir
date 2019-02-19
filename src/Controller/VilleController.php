@@ -23,6 +23,21 @@ class VilleController extends AbstractController
             $villes = $VilleRepository->findByExampleField($request->request->get("ville"));
         }
 
+        if($request->request->get('newNom') && $request->request->get('newCp')){
+
+            $VilleRepository = $this->getDoctrine()->getRepository(Ville::class);
+            $ville = $VilleRepository->find($request->request->get('id'));
+            $ville->setNom($request->request->get('newNom'));
+            $ville->setCodePostal($request->request->get('newCp'));
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ville);
+            $em->flush();
+
+            return $this->redirectToRoute('ville');
+        }
+
         if($request->request->get("nom") && $request->request->get("cp")){
 
             $ville = new Ville();
@@ -38,7 +53,6 @@ class VilleController extends AbstractController
 
 
         return $this->render('ville/ville.html.twig', [
-            'controller_name' => 'VilleController',
             'villes' => $villes
         ]);
     }
@@ -61,26 +75,6 @@ class VilleController extends AbstractController
 
     }
 
-    /**
-     * @Route("ville/update/{id}", name="updateVille",
-     *     requirements= {"id": "\d+"},
-     *     methods={"GET","POST"}
-     *     )
-     */
-    public function updateVille(Request $request,int $id){
 
-        $VilleRepository = $this->getDoctrine()->getRepository(Ville::class);
-        $ville = $VilleRepository->find($id);
-
-        $ville->setNom($request->request->get('newNom'));
-        $ville->setCodePostal($request->request->get('newCp'));
-
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($ville);
-
-        return $this->redirectToRoute('ville');
-
-    }
 
 }
