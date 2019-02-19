@@ -133,11 +133,19 @@ class SortieController extends AbstractController
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $SortieRepository->find($id);
 
-        $sortie->addParticipant($this->getUser());
+        // on inscrit l'utilisateur que si le côtat le permet
+        if(count($sortie->getParticipants()) < $sortie->getNbPlace())
+        {
+            $sortie->addParticipant($this->getUser());
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($sortie);
-        $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($sortie);
+            $em->flush();
+        }
+        else
+        {
+            throw  $this->createNotFoundException("Plus de place c'est dommage !");
+        }
 
         return $this->redirectToRoute('home');
     }

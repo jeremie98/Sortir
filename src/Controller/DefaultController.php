@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends AbstractController
 {
@@ -17,6 +18,8 @@ class DefaultController extends AbstractController
      */
     public function home(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
         // récupération de l'utilisateur connecté
         $user = $this->getUser();
         // récupération de toutes les sorties
@@ -26,6 +29,31 @@ class DefaultController extends AbstractController
         // récupération des sites pour la liste déroulante
         $siteRepository = $this->getDoctrine()->getRepository(Site::class);
         $sites = $siteRepository->findAll();
+
+
+        /* GESTION DES ETATS EN FONCTION DE LA DATE */
+        $dateJour = new \DateTime('now');
+
+        foreach($sorties as $sortie)
+        {
+            if($sortie->getDateLimiteInscription() < $dateJour and $sortie->getDateSortie() > $dateJour)
+            {
+                $sortie->setEtat("Clôturée");
+                $em->persist($sortie);
+            }
+            if($sortie->getDateSortie() < $dateJour)
+            {
+                $sortie->setEtat("Passée");
+                $em->persist($sortie);
+            }
+            if($sortie->getDateSortie()->format("Y-m-d") == $dateJour->format("Y-m-d"))
+            {
+                $sortie->setEtat("En cours");
+                $em->persist($sortie);
+            }
+
+        }
+        $em->flush();
 
 
         /* Filtres sur les sorties*/
