@@ -17,6 +17,7 @@ class DefaultController extends AbstractController
      */
     public function home(Request $request)
     {
+
         // récupération de l'utilisateur connecté
         $user = $this->getUser();
         // récupération de toutes les sorties
@@ -121,8 +122,8 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/update_my_profil", name="update_my_profil"),
-     * ;
+     * @Route("/update_my_profil", name="update_my_profil")
+     *
      */
     public function updateMyProfil(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
 
@@ -147,6 +148,56 @@ class DefaultController extends AbstractController
         return $this->redirectToRoute('home', [
             'currentUser' => $currentUser
         ]);
+    }
+
+
+    /**
+     * @Route("/etat", name="updateEtat")
+     */
+    public function etatUser (Request $request){
+
+        $userRepo = $this->getDoctrine()->getRepository(User::class);
+        $roles[] = 'ROLE_USER';
+        //$users = $userRepo->findOneBySomeField( array('roles' => 'ROLE_USER'));
+        $users = $userRepo->findAll();
+
+
+        if ($request->request->get('activer')){
+
+           // dd($request->request->get('id'));
+            $userRepo = $this->getDoctrine()->getRepository(User::class);
+
+            $currentUser = $userRepo->find($request->request->get('activer'));
+
+            $currentUser->setEtat(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($currentUser);
+            $em->flush();
+
+            return $this->redirectToRoute('updateEtat');
+
+        }
+
+        if ($request->request->get('désactiver')){
+
+            // dd($request->request->get('id'));
+            $userRepo = $this->getDoctrine()->getRepository(User::class);
+
+            $currentUser = $userRepo->find($request->request->get('désactiver'));
+
+            $currentUser->setEtat(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($currentUser);
+            $em->flush();
+
+            return $this->redirectToRoute('updateEtat');
+
+        }
+        return $this->render('user/desactive.html.twig',
+
+            [
+                'users' => $users            ]);
+
     }
 
 }
