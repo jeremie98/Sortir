@@ -25,9 +25,9 @@ class DefaultController extends AbstractController
         $user = $this->getUser();
 
 
-        /*$archiveRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $archive= $archiveRepository->findSortiesNonArchivees(new \DateTime('now'));
-*/
+        // $archiveRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        // $archive = $archiveRepository->findSortiesArchivees();
+
         // récupération de toutes les sorties
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sorties = $sortieRepository->findSortiesPlusRecentes();

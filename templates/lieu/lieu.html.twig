@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LieuController!{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Ajouter des lieux</h1>
+
+        <form action="{{ path('lieu') }}" method="post">
+            <label >Nom</label>
+            <input type="text" name="nom">
+
+            <label >Rue</label>
+            <input type="text" name="rue">
+
+            <select name="">
+                {% for ville in villes %}
+
+                    <option name="" value="">{{ ville.nom }}</option>
+                    <input type="hidden" name="ville" value="{{ ville.id }}">
+                {% endfor %}
+            </select>
+            <button type="submit">Bouton</button>
+        </form>
+
+    </div>
+{% endblock %}
