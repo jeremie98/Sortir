@@ -2,6 +2,15 @@
 
 {% block content %}
 
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes(['danger', 'success']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <div id="datejour">
         Date du jour :  {{ "now"|date("d/m/Y") }}<br>
         Participant : {{ user.prenom }} {{ user.nom }}
@@ -105,8 +114,8 @@
 
                         <!-- La sortie est en création et le user est organisateur -->
                         {% if sortie.etat == 'En création' and user.id == sortie.organisateur.id %}
-                            <a href="#">Modifier</a>
-                            <a href="#">- Publier</a>
+                            <a href="{{ path('updateSortie', {'id' : sortie.id}) }}">Modifier</a>
+                            <a href="{{ path('publier', {'id' : sortie.id}) }}">- Publier</a>
                         {% endif %}
 
                         <!-- La sortie est clôturée et le user n'est pas inscrit -->

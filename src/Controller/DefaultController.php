@@ -38,21 +38,21 @@ class DefaultController extends AbstractController
 
 
         /* GESTION DES ETATS EN FONCTION DE LA DATE */
-        $dateJour = new \DateTime('now');
+        $currentDateTime = new \DateTime('now');
 
         foreach($sorties as $sortie)
         {
-            if($sortie->getDateLimiteInscription() < $dateJour and $sortie->getDateSortie() > $dateJour)
+            if($sortie->getDateLimiteInscription() < $currentDateTime and $sortie->getDateSortie() > $currentDateTime)
             {
                 $sortie->setEtat("Clôturée");
                 $em->persist($sortie);
             }
-            if($sortie->getDateSortie() < $dateJour)
+            if($sortie->getDateSortie() < $currentDateTime and $sortie->getEtat() != "En création")
             {
                 $sortie->setEtat("Passée");
                 $em->persist($sortie);
             }
-            if($sortie->getDateSortie()->format("Y-m-d") == $dateJour->format("Y-m-d"))
+            if($sortie->getDateSortie() == $currentDateTime)
             {
                 $sortie->setEtat("En cours");
                 $em->persist($sortie);
