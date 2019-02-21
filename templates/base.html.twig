@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Sortir{% endblock %}</title>
         {%  block csv %}
         {% endblock %}
@@ -13,7 +14,7 @@
     </head>
     <body>
         <header>
-            <div id="main-nav" class="nav">
+            <nav class="navbar navbar-expand-lg navbar-">
                 <div id="title">
                         <img src="{{ asset('img/logo.png') }}" width="80" height="80" alt="LogoApplication">
                         <h1>Sortir</h1>
@@ -33,12 +34,12 @@
                         <a href="{{ path('app_register') }}">Inscrire un utilisateur</a>
                     {% endif %}
                 </div>
-            </div>
+            </nav>
         </header>
 
-            <main>
+            <div id="container-fluid-id">
                 {% block content %}{% endblock %}
-            </main>
+            </div>
 
         <footer>
 
