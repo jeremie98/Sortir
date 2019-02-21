@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+
+    <table id="tableHome">
+
+        <tr>
+            <th>Nom Groupe</th>
+            <th>Chef Groupe</th>
+            <th>Actions</th>
+        </tr>
+
+
+        {% for groupe in groupes %}
+
+
+            <tr>
+                <td>{{ groupe.nom }}</td>
+                <td>{{ groupe.chef }}</td>
+                <td>
+                    <a href="{{ path('supprGroupe', {'id': groupe.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+
+    </table>
+
+
+
+{% endblock %}
