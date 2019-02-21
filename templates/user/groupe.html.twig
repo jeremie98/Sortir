@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    {{ form_start(groupeForm) }}
+    {{ form_row(groupeForm.nom) }}
+    <button type="submit"  name="creer" class="btn btn-primary">Creer</button>
+    {{ form_end(groupeForm) }}
+
+
+{% endblock %}

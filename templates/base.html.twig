@@ -23,6 +23,8 @@
                     {% if is_granted(['ROLE_USER','ROLE_ADMIN']) %}
                         <a href="{{ path('home') }}">Accueil</a>
                         <a href="{{ path('my_profil')}}">Mon profil</a>
+                        <a href="{{ path('groupe') }}"> Faire un groupe</a>
+                        <a href="{{ path('inscrireGroupe') }}"> S'inscrire à un groupe</a>
                         <a href="{{ path('app_logout') }}">Se déconnecter</a>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
