@@ -22,19 +22,19 @@ class LieuRepository extends ServiceEntityRepository
     // /**
     //  * @return Lieu[] Returns an array of Lieu objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findAllLieu($value): ?array
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
+            ->andWhere('l.nom = :val')
             ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('l.nom', 'ASC')
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Lieu
