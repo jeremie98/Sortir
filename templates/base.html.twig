@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Sortir{% endblock %}</title>
         {%  block csv %}
         {% endblock %}
@@ -13,7 +14,7 @@
     </head>
     <body>
         <header>
-            <div id="main-nav" class="nav">
+            <nav id="main-nav">
                 <div id="title">
                     <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" width="80" height="80" alt="LogoApplication"></a>
                     <h1>Sortir</h1>
@@ -25,6 +26,7 @@
                         <a href="{{ path('my_profil')}}">Mon profil</a>
                         <a href="{{ path('groupe') }}"> Faire un groupe</a>
                         <a href="{{ path('inscrireGroupe') }}"> S'inscrire à un groupe</a>
+                        <a href="{{ path('mesGroupes') }}"> Mes Groupes</a>
                         <a href="{{ path('app_logout') }}">Se déconnecter</a>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
@@ -35,12 +37,12 @@
                         <a href="{{ path('app_register') }}">Inscrire un utilisateur</a>
                     {% endif %}
                 </div>
-            </div>
+            </nav>
         </header>
 
-            <main>
+            <div id="container-fluid-id">
                 {% block content %}{% endblock %}
-            </main>
+            </div>
 
         <footer>
 

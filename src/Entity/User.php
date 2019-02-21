@@ -136,7 +136,7 @@ class User implements UserInterface
     private $groupes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Groupe", mappedBy="partipants")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Groupe", mappedBy="participants")
      */
     private $groupesIncrit;
 
