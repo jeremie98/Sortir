@@ -55,7 +55,11 @@ footer{
     justify-content: space-between;
 }
 #tabSorties{
-    margin-left: 5% ;
+    margin-left: 5%;
+    max-height:400px;
+    max-width:95%;
+    overflow:scroll;/*pour activer les scrollbarres*/
+    overflow-x: hidden;
 }
 #tableHome{
     border : medium solid black;
@@ -101,4 +105,7 @@ footer{
 
     border: thin solid #6495ed;
     width: 50%;
+}
+#listParticip{
+    padding: 1em;
 }
