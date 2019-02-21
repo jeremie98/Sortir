@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="df770db9-a1d5-4adf-9cad-a370506b8764" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="df770db9-a1d5-4adf-9cad-a370506b8764" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +40,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/GroupeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-600" />
+            <state relative-caret-position="-549" />
           </provider>
         </entry>
       </file>
@@ -652,11 +650,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550752295798</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="-- tableau màj&#10;-- annuler sortie en tant qu'admin&#10;-- resolution bug date sortie &#10;-- changement style css">
+      <created>1550755830469</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1550755830469</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172767000" />
+    <option name="totallyTimeSpent" value="173385000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1103,7 +1108,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/GroupeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-600" />
+        <state relative-caret-position="-549" />
       </provider>
     </entry>
   </component>
