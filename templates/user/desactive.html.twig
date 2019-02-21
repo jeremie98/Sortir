@@ -18,13 +18,12 @@
             <td>{{ user.nom }}</td>
             <td>{{ user.prenom }}</td>
             <td>
+
                     {% if user.etat == false %}
                         <form method="post" action="{{ path('updateEtat') }}">
                             <input type="hidden" name="activer" value="{{ user.id }}">
                             <button type="submit">Activer</button>
                         </form>
-
-
 
 
                     {% else %}

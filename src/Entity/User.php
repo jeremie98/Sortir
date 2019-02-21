@@ -104,6 +104,7 @@ class User implements UserInterface
         $this->sortiesOrg = new ArrayCollection();
         $this->sorties = new ArrayCollection();
         $this->setRoles(['ROLE_USER']);
+        $this->setEtat(true);
     }
 
     public function getId(): ?int
@@ -309,6 +310,7 @@ class User implements UserInterface
 
     public function getEtat(): ?bool
     {
+
         return $this->etat;
     }
 
