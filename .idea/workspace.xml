@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="df770db9-a1d5-4adf-9cad-a370506b8764" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SortieController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SortieController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/SortieRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SortieRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/default/home.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/default/home.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sortie/annuler.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sortie/annuler.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,15 +27,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/SortieController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="243" column="9" selection-start-line="243" selection-start-column="9" selection-end-line="243" selection-end-column="9" />
+            <state relative-caret-position="537">
+              <caret line="280" column="53" selection-start-line="280" selection-start-column="53" selection-end-line="280" selection-end-column="53" />
               <folding>
                 <element signature="e#34#60#0#PHP" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Controller/GroupeController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-600" />
           </provider>
         </entry>
       </file>
@@ -646,11 +645,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550738880202</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="-- tableau màj&#10;-- annuler sortie en tant qu'admin&#10;-- resolution bug date sortie &#10;-- changement style css">
+      <created>1550752295798</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1550752295798</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="171738000" />
+    <option name="totallyTimeSpent" value="172767000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -666,7 +672,7 @@
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.12526652" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Structure" order="1" sideWeight="0.5005417" side_tool="true" weight="0.12526652" />
       <window_info id="Favorites" order="2" sideWeight="0.5005417" side_tool="true" weight="0.12526652" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32827735" />
@@ -674,12 +680,12 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.15886833" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.15817985" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49840087" weight="0.25135428" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4968017" visible="true" weight="0.14301191" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49946696" weight="0.156013" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50038254" side_tool="true" weight="0.11484291" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50319827" side_tool="true" visible="true" weight="0.14301191" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -713,6 +719,30 @@
     <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -744,16 +774,10 @@
     <MESSAGE value="-- gerer les villes&#10;-- gerer les sites" />
     <MESSAGE value="-- CSV" />
     <MESSAGE value="-- pull dylan" />
-    <option name="LAST_COMMIT_MESSAGE" value="-- pull dylan" />
+    <MESSAGE value="-- tableau màj&#10;-- annuler sortie en tant qu'admin&#10;-- resolution bug date sortie &#10;-- changement style css" />
+    <option name="LAST_COMMIT_MESSAGE" value="-- tableau màj&#10;-- annuler sortie en tant qu'admin&#10;-- resolution bug date sortie &#10;-- changement style css" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/packages/dev/easy_log_handler.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/bootstrap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -1069,12 +1093,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/SortieController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="243" column="9" selection-start-line="243" selection-start-column="9" selection-end-line="243" selection-end-column="9" />
+        <state relative-caret-position="537">
+          <caret line="280" column="53" selection-start-line="280" selection-start-column="53" selection-end-line="280" selection-end-column="53" />
           <folding>
             <element signature="e#34#60#0#PHP" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/GroupeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-600" />
       </provider>
     </entry>
   </component>
