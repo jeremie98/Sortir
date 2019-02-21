@@ -54,9 +54,9 @@ class RegistrationController extends AbstractController
 
 
     /**
-     * @Route("/register/csv", name="aaa")
+     * @Route("/register/csv", name="csv")
      */
-    public function importAction()
+    public function importAction(UserPasswordEncoderInterface $passwordEncoder)
     {
 
         $utilisateurs = array(); // Tableau qui va contenir les éléments extraits du fichier CSV
@@ -98,7 +98,9 @@ class RegistrationController extends AbstractController
                 // On crée un objet utilisateur
                 $user = new User();
                 $user->setEmail($utilisateur["email"]);
-                $user->setPassword($utilisateur["password"]);
+                $passwordEncoded = $passwordEncoder->encodePassword($user, $utilisateur["password"]);
+                $user->setPassword($passwordEncoded);
+                //$user->setPassword($utilisateur["password"]);
                 $user->setPseudo($utilisateur["pseudo"]);
                 $user->setPrenom($utilisateur["prenom"]);
                 $user->setNom($utilisateur["nom"]);
@@ -106,16 +108,14 @@ class RegistrationController extends AbstractController
                 $user->setVille($utilisateur["ville"]);
 
                 $SiteRepository = $this->getDoctrine()->getRepository(Site::class);
-                $site = $SiteRepository->find($utilisateurs[2]["site"]);
+                $site = $SiteRepository->find($utilisateur["site"]);
 
                 $user->setUserSite($site);
 
 
+
+
                 // Encode le mot de passe
-                /*    $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
-                    $plainpassword = $utilisateur["password"];
-                    $password = $encoder->encodePassword($plainpassword, $user->getSalt());
-        */
 
 
                 // Hydrate l'objet avec les informations provenants du fichier CSV
@@ -123,8 +123,7 @@ class RegistrationController extends AbstractController
 
                 // Enregistrement de l'objet en vu de son écriture dans la base de données
                 $em->persist($user);
-
-           }
+            }
 
 
         // Ecriture dans la base de données
@@ -132,7 +131,8 @@ class RegistrationController extends AbstractController
 
 
         // Renvoi la réponse (ici affiche un simple OK pour l'exemple)
-        return new Response('OK');
-        return $this->redirectToRoute('home');
+
+        return $this->render('registration/csv.html.twig');
+        //return new Response('Les utilisateurs ont bien été enregistrés');
     }
 }

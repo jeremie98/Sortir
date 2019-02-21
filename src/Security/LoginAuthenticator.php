@@ -71,6 +71,11 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
 
+        if ($user->getEtat() == false){
+
+            throw new CustomUserMessageAuthenticationException('TU es bannis mon pote');
+        }
+
         return $user;
     }
 
@@ -81,6 +86,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }

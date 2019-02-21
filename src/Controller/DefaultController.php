@@ -183,4 +183,54 @@ class DefaultController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/etat", name="updateEtat")
+     */
+    public function etatUser (Request $request){
+
+        $userRepo = $this->getDoctrine()->getRepository(User::class);
+        $roles[] = 'ROLE_USER';
+        //$users = $userRepo->findOneBySomeField( array('roles' => 'ROLE_USER'));
+        $users = $userRepo->findAll();
+
+
+        if ($request->request->get('activer')){
+
+           // dd($request->request->get('id'));
+            $userRepo = $this->getDoctrine()->getRepository(User::class);
+
+            $currentUser = $userRepo->find($request->request->get('activer'));
+
+            $currentUser->setEtat(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($currentUser);
+            $em->flush();
+
+            return $this->redirectToRoute('updateEtat');
+
+        }
+
+        if ($request->request->get('désactiver')){
+
+            // dd($request->request->get('id'));
+            $userRepo = $this->getDoctrine()->getRepository(User::class);
+
+            $currentUser = $userRepo->find($request->request->get('désactiver'));
+
+            $currentUser->setEtat(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($currentUser);
+            $em->flush();
+
+            return $this->redirectToRoute('updateEtat');
+
+        }
+        return $this->render('user/desactive.html.twig',
+
+            [
+                'users' => $users            ]);
+
+    }
+
 }
