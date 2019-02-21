@@ -130,6 +130,16 @@ class User implements UserInterface
      */
     private $etat;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Groupe", mappedBy="chef", orphanRemoval=true)
+     */
+    private $groupes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Groupe", mappedBy="partipants")
+     */
+    private $groupesIncrit;
+
 
 
     public function __construct()
@@ -138,6 +148,9 @@ class User implements UserInterface
         $this->sortiesOrg = new ArrayCollection();
         $this->sorties = new ArrayCollection();
         $this->setRoles(['ROLE_USER']);
+        $this->setEtat(true);
+        $this->groupes = new ArrayCollection();
+        $this->groupesIncrit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -343,12 +356,72 @@ class User implements UserInterface
 
     public function getEtat(): ?bool
     {
+
         return $this->etat;
     }
 
     public function setEtat(bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groupe[]
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Groupe $groupe): self
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes[] = $groupe;
+            $groupe->setChef($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): self
+    {
+        if ($this->groupes->contains($groupe)) {
+            $this->groupes->removeElement($groupe);
+            // set the owning side to null (unless already changed)
+            if ($groupe->getChef() === $this) {
+                $groupe->setChef(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groupe[]
+     */
+    public function getGroupesIncrit(): Collection
+    {
+        return $this->groupesIncrit;
+    }
+
+    public function addGroupesIncrit(Groupe $groupesIncrit): self
+    {
+        if (!$this->groupesIncrit->contains($groupesIncrit)) {
+            $this->groupesIncrit[] = $groupesIncrit;
+            $groupesIncrit->addPartipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupesIncrit(Groupe $groupesIncrit): self
+    {
+        if ($this->groupesIncrit->contains($groupesIncrit)) {
+            $this->groupesIncrit->removeElement($groupesIncrit);
+            $groupesIncrit->removePartipant($this);
+        }
 
         return $this;
     }

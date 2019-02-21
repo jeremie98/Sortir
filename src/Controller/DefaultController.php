@@ -69,7 +69,8 @@ class DefaultController extends AbstractController
             $siteSelect = $siteRepository->find($request->request->get("site-select"));
 
             $sorties = $sortieRepository->findBy(
-                ['siteOrg' => $siteSelect]
+                ['siteOrg' => $siteSelect],
+                ['dateSortie' => 'DESC']
             );
         }
         if($request->request->get("search-bar")){
@@ -87,7 +88,7 @@ class DefaultController extends AbstractController
         if($request->request->get("sortOrg")){
             $sorties = $sortieRepository->findBy(
                 ['organisateur' => $this->getUser()],
-                ['dateSortie' => 'ASC']
+                ['dateSortie' => 'DESC']
             );
         }
         if($request->request->get("sortInsc")){

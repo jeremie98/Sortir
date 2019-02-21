@@ -99,12 +99,7 @@ class SortieController extends AbstractController
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $SortieRepository->find($id);
 
-        if($sortie->getOrganisateur() != $this->getUser())
-        {
-            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
-            return $this->redirectToRoute('home');
-        }
-        else
+        if($sortie->getOrganisateur() == $this->getUser() or $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') )
         {
             $sortieForm = $this->createForm(SortieType::class, $sortie);
             // récuperation des villes
@@ -132,6 +127,7 @@ class SortieController extends AbstractController
             // publication
             if ($sortieForm->isSubmitted() && $sortieForm->isValid() && $request->request->get('publier')) {
                 $this->publierSortie($id);
+                return $this->redirectToRoute('home');
             }
             // suppression
             if ($sortieForm->isSubmitted() && $request->request->get('supprimer')) {
@@ -141,6 +137,11 @@ class SortieController extends AbstractController
                 $this->addFlash('success', 'Votre sortie a bien été supprimée.');
                 return $this->redirectToRoute('home');
             }
+        }
+        else
+        {
+            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('sortie/modifier_sortie.html.twig', [
@@ -166,12 +167,7 @@ class SortieController extends AbstractController
 
         $currentDatetime = new \DateTime('now');
 
-        if($sortie->getOrganisateur() != $this->getUser())
-        {
-            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
-            return $this->redirectToRoute('home');
-        }
-        else
+        if($sortie->getOrganisateur() == $this->getUser() or $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
         {
             // date de cloture inscription supérieure a l'heure actuelle de 12h et inferieure à la date de sortie
             if($sortie->getDateLimiteInscription() > $currentDatetime->modify('+ 12 hours') and $sortie->getDateLimiteInscription() < $sortie->getDateSortie())
@@ -189,6 +185,12 @@ class SortieController extends AbstractController
                 $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $currentDatetime->format("Y-m-d H:i"). " et antérieure à la date de la sortie !");
                 return $this->redirectToRoute("home");
             }
+
+        }
+        else
+        {
+            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
+            return $this->redirectToRoute('home');
         }
     }
 
@@ -231,12 +233,13 @@ class SortieController extends AbstractController
         $sortie = $SortieRepository->find($id);
         $annulation = new Annulation();
 
-        if($this->getUser() != $sortie->getOrganisateur()){
-            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
-            return $this->redirectToRoute('home');
-        }
         if (!$sortie) {
             $this->addFlash('danger', "Cette sortie n'existe pas !");
+            return $this->redirectToRoute('home');
+        }
+
+        if($this->getUser() != $sortie->getOrganisateur() and !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
             return $this->redirectToRoute('home');
         }
 
