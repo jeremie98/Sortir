@@ -18,8 +18,14 @@
                 <tr>
                     <td>{{ groupe.nom }}</td>
                     <td>{{ groupe.chef }}</td>
-                    <td><a href="{{  path('groupeInscrit', {'id': groupe.id} ) }}">S'incrire</a> </td>
+                    <td>
+                    {% if (user not in groupe.participants) %}
+                         <a href="{{  path('groupeInscrit', {'id': groupe.id} ) }}">S'incrire</a>
+                    {% else %}
+                        <a href="{{ path('desinscrire', {'id': groupe.id}) }}">Désincrire</a>
 
+                    {%  endif %}
+                    </td>
                 </tr>
 
             {% endfor %}
