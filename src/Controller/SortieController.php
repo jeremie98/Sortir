@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
+
+
+
     /**
      * @Route("/sortie/create", name="createsortie")
      */
@@ -23,12 +26,13 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         // récuperation des villes
         $repoVille = $this->getDoctrine()->getRepository(Ville::class);
-        $ville = $repoVille->findAll();
+        $villes = $repoVille->findAll();
         // récuperation du user pour affichage de ville organisatrice
         $user = $this->getUser();
-        // récuperation des lieux
+
+        /* récuperation des lieux
         $repoLieu = $this->getDoctrine()->getRepository(Lieu::class);
-        $allLieu = $repoLieu->findAll();
+        $allLieu = $repoLieu->findAll();*/
 
         /* TODO : récuperation de la ville selectionnée pour filtrer les lieux
         $lieu = $repoLieu->findBy(
@@ -37,23 +41,155 @@ class SortieController extends AbstractController
 
         // récupération de l'id de l'utilisateur pour remplir le champ "Organisateur"
         $sortie->setOrganisateur($this->getUser());
+
         $sortieForm->handleRequest($req);
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+
+        // enregistrement
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid() && $req->request->get('enregistrer')) {
             $em = $this->getDoctrine()->getManager();
             $sortie->setEtat('En création');
             $sortie->setSiteOrg($this->getUser()->getUserSite());
             $em->persist($sortie);
             $em->flush();
 
-            //$this->addFlash('success', 'Votre sortie a bien été enregistrée.');
+            $this->addFlash('success', 'Votre sortie a bien été enregistrée.');
             return $this->redirectToRoute('home');
         }
+        // publication
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid() && $req->request->get('publier')) {
+
+            $currentDatetime = new \DateTime('now');
+
+            // date de cloture inscription supérieure a l'heure actuelle de 12h et inferieure à la date de sortie
+            if($sortie->getDateLimiteInscription() > $currentDatetime->modify('+ 12 hours') and $sortie->getDateLimiteInscription() < $sortie->getDateSortie())
+            {
+                $em = $this->getDoctrine()->getManager();
+                $sortie->setEtat('Ouvert');
+                $sortie->setSiteOrg($this->getUser()->getUserSite());
+                $em->persist($sortie);
+                $em->flush();
+
+                $this->addFlash('success', 'Votre sortie a bien été publiée.');
+                return $this->redirectToRoute('home');
+            }
+            else
+            {
+                $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $currentDatetime->format("Y-m-d H:i"). " et antérieure à la date de la sortie !");
+            }
+
+        }
+
         return $this->render('sortie/creer_sortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
-            'villes' => $ville,
+            'villes' => $villes,
             'user' => $user,
-            'lieus' => $allLieu,
+            //'lieux' => $allLieu,
         ]);
+    }
+
+    /**
+     * @Route("/sortie/update/{id}",
+     *     name="updateSortie",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET", "POST"}
+     *     )
+     */
+    public function modifierSortie(int $id, Request $request)
+    {
+        $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $SortieRepository->find($id);
+
+        if($sortie->getOrganisateur() != $this->getUser())
+        {
+            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
+            return $this->redirectToRoute('home');
+        }
+        else
+        {
+            $sortieForm = $this->createForm(SortieType::class, $sortie);
+            // récuperation des villes
+            $repoVille = $this->getDoctrine()->getRepository(Ville::class);
+            $villes = $repoVille->findAll();
+            // récuperation du user pour affichage de ville organisatrice
+            $user = $this->getUser();
+            /* récuperation des lieux
+            $repoLieu = $this->getDoctrine()->getRepository(Lieu::class);
+            $allLieu = $repoLieu->findAll();*/
+
+            $sortieForm->handleRequest($request);
+
+            // enregistrement
+            if ($sortieForm->isSubmitted() && $sortieForm->isValid() && $request->request->get('enregistrer')) {
+                $em = $this->getDoctrine()->getManager();
+                $sortie->setEtat('En création');
+                $sortie->setSiteOrg($this->getUser()->getUserSite());
+                $em->persist($sortie);
+                $em->flush();
+
+                $this->addFlash('success', 'Votre sortie a bien été enregistrée.');
+                return $this->redirectToRoute('home');
+            }
+            // publication
+            if ($sortieForm->isSubmitted() && $sortieForm->isValid() && $request->request->get('publier')) {
+                $this->publierSortie($id);
+            }
+            // suppression
+            if ($sortieForm->isSubmitted() && $request->request->get('supprimer')) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($sortie);
+                $em->flush();
+                $this->addFlash('success', 'Votre sortie a bien été supprimée.');
+                return $this->redirectToRoute('home');
+            }
+        }
+
+        return $this->render('sortie/modifier_sortie.html.twig', [
+            'sortieForm' => $sortieForm->createView(),
+            'sortie' => $sortie,
+            'villes' => $villes,
+            //'lieux' => $allLieu,
+        ]);
+    }
+
+    /**
+     * @Route("/sortie/publier/{id}",
+     *     name="publier",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET"}
+     *     )
+     */
+    public function publierSortie(int $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $SortieRepository->find($id);
+
+        $currentDatetime = new \DateTime('now');
+
+        if($sortie->getOrganisateur() != $this->getUser())
+        {
+            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
+            return $this->redirectToRoute('home');
+        }
+        else
+        {
+            // date de cloture inscription supérieure a l'heure actuelle de 12h et inferieure à la date de sortie
+            if($sortie->getDateLimiteInscription() > $currentDatetime->modify('+ 12 hours') and $sortie->getDateLimiteInscription() < $sortie->getDateSortie())
+            {
+                // passe l'état de la sortie à "Ouvert"
+                $sortie->setEtat("Ouvert");
+                $em->persist($sortie);
+                $em->flush();
+
+                $this->addFlash('success', 'Votre sortie a bien été publiée.');
+                return $this->redirectToRoute("home");
+            }
+            else
+            {
+                $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $currentDatetime->format("Y-m-d H:i"). " et antérieure à la date de la sortie !");
+                return $this->redirectToRoute("home");
+            }
+        }
     }
 
     /**
@@ -63,16 +199,16 @@ class SortieController extends AbstractController
      *     methods={"GET", "POST"}
      *     )
      */
-    public function afficherSortie(int $id){
-
+    public function afficherSortie(int $id)
+    {
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $SortieRepository->find($id);
 
         $participants = $sortie->getParticipants();
 
         if (!$sortie) {
-
-            throw $this->createNotFoundException("Cette sortie n'existe pas !");
+            $this->addFlash('danger', "Cette sortie n'existe pas !");
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('sortie/details.html.twig', [
@@ -96,12 +232,12 @@ class SortieController extends AbstractController
         $annulation = new Annulation();
 
         if($this->getUser() != $sortie->getOrganisateur()){
-            throw $this->createAccessDeniedException("Cette sortie ne vous appartient pas !");
+            $this->addFlash('danger', 'Cette sortie ne vous appartient pas !');
+            return $this->redirectToRoute('home');
         }
         if (!$sortie) {
-
-            throw  $this->createNotFoundException("Cette sortie n'existe pas !");
-
+            $this->addFlash('danger', "Cette sortie n'existe pas !");
+            return $this->redirectToRoute('home');
         }
 
         if($request->request->get('motif')){
@@ -114,6 +250,7 @@ class SortieController extends AbstractController
             $em->persist($annulation);
             $em->flush();
 
+            $this->addFlash('success', 'Votre sortie a bien été annulée !');
             return $this->redirectToRoute('home');
         }
 
@@ -123,19 +260,29 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/inscrire", name="inscrire",
-     * methods={"POST"})
+     * @Route("/sortie/inscrire/{id}",
+     *      name="inscrire",
+     *     requirements={"id": "\d+"},
+     *     methods={"GET"})
      */
-    public function inscrire(Request $request)
+    public function inscrire(int $id)
     {
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sortie = $SortieRepository->find($request->request->get('id_sortie'));
+        $sortie = $SortieRepository->find($id);
 
-        $sortie->addParticipant($this->getUser());
+        // on inscrit l'utilisateur que si le côtat le permet
+        if(count($sortie->getParticipants()) < $sortie->getNbPlace())
+        {
+            $sortie->addParticipant($this->getUser());
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($sortie);
-        $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($sortie);
+            $em->flush();
+        }
+        else
+        {
+            $this->addFlash('danger', "Dommage il semblerait qu'il n'y est plus de place pour cette sortie ! :( ");
+        }
 
         return $this->redirectToRoute('home');
     }
@@ -151,6 +298,11 @@ class SortieController extends AbstractController
     {
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
+
+        if (!$sortie) {
+            $this->addFlash('danger', "Cette sortie n'existe pas !");
+            return $this->redirectToRoute('home');
+        }
 
         // supprime l'utilisateur de la liste des participants
         $sortie->removeParticipant($this->getUser());

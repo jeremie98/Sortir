@@ -3,11 +3,17 @@
 {% block title %}Sortir | Mon profil{% endblock %}
 
 {% block content %}
+
     <form  class="container" method="post" action="update_my_profil">
         <div class="row">
             <div class="col-5">
                 <img src="{{ asset('img/profil/profil.jpg') }}" alt="profil" width="50%">
-                <input type="file">
+                <form action="photo" >
+                    <input type="file" name="photo"><br>
+                    <button type="submit"> Ajouter </button>
+
+                </form>
+
             </div>
             <div class="col-5">
                 <h3>Mon profil</h3>
@@ -24,7 +30,7 @@
                 <input name="tel" type="text" id="tel" class="form-control" value="{{ currentUser.telephone }}">
 
                 <label for="inputPassword">Password</label>
-                <input name="password" type="text" id="password" class="form-control">
+                <input name="password" type="password" id="password" class="form-control">
 
                 <label for="inputVille">Ville</label>
                 <input name="ville" type="text" id="ville" class="form-control" value="{{ currentUser.ville }}"><br>

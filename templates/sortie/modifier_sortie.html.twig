@@ -1,35 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sortir | Créer une sortie{% endblock %}
+{% block title %}Sortir | Modifier une sortie{% endblock %}
 
 {% block content %}
-    {# read and display all flash messages #}
-    {% for label, messages in app.flashes(['danger', 'success']) %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
     <div class="container">
 
-        <h3>Créer une sortie</h3>
+        <h3>Modifier une sortie</h3>
         {{ form_start(sortieForm) }}
         <div class="row">
 
             <div class="col-6">
-                {{ form_row(sortieForm.nom) }}
+                {{ form_row(sortieForm.nom ) }}
                 {{ form_row(sortieForm.nbPlace ) }}
                 {{ form_row(sortieForm.duree ) }}
                 {{ form_row(sortieForm.description ) }}
-                {{ form_row(sortieForm.dateSortie ) }}
+                {{ form_row(sortieForm.dateSortie) }}
                 {{ form_row(sortieForm.dateLimiteInscription) }}
             </div>
 
             <div class="col-6">
                 <div class="form-group">
                     <label for="user_ville">Ville organisatrice :</label>
-                    <input class="form-control" id="disabledInput" type="text" name="site_id" placeholder="{{ user.getUserSite() }}"disabled >
+                    <input class="form-control" id="disabledInput" type="text" name="site_id" placeholder="{{ sortie.siteOrg }}"disabled >
                 </div>
                 <div class="form-group">
                     <label for="lieu_nom">Villes :</label>
@@ -43,7 +35,8 @@
             </div>
         </div>
         <button type="submit"  name="publier" class="btn btn-primary" value="publier">Publier</button>
-        <button type="submit"  name="enregistrer" class="btn btn-success" value="enregistrer">Enregistrer</button>
+        <button type="submit" name="enregistrer" class="btn btn-success"  value="enregistrer">Enregistrer</button>
+        <button type="submit"  name="supprimer" class="btn btn-danger" value="supprimer">Supprimer</button>
         <a class="btn btn-outline-danger" href="{{ path('home') }}">Annuler</a>
 
         {{ form_end(sortieForm) }}

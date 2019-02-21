@@ -10,7 +10,8 @@
             document.getElementById("myP2").style.visibility = "hidden";
         }
 
-        function demoVisibility2() {
+        function demoVisibility2(id) {
+            document.getElementById("id1").value=id;
             document.getElementById("myP2").style.visibility = "visible";
         }
     </script>
@@ -37,7 +38,7 @@
             <tr>
                 <td>{{ ville.nom }}</td>
                 <td>{{ ville.codePostal }}</td>
-                <td><a onclick="demoVisibility2()" href="#">Modifier</a> ---
+                <td><a onclick="demoVisibility2({{ ville.id }})" href="#">Modifier</a> ---
                     <a  href="{{ path('supprVille', {'id' : ville.id} ) }}">Supprimer</a> </td>
             </tr>
 
@@ -55,15 +56,19 @@
 
     <div class="test">
 
-    <form  id="myP2" action="updateVille" method="post" >
+    <form  id="myP2" method="post" >
 
+    <input type="hidden" name="id" id="id1" value="">
 
     <label>Nouveau nom</label>
+
         <input type="text" name="newNom">
     <label>Nouveau code postal</label>
+
         <input type="text" name="newCp">
 
-    <button type="submit"> Modifier </button>
+    <button type="submit" name="modifier"> Modifier </button>
+
     </form>
     </div>
 {% endblock %}
