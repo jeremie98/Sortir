@@ -60,14 +60,13 @@ footer{
     overflow-x: hidden;
 }
 #tableHome{
-    border : medium solid black;
     border-collapse: separate;
     width: 95%;
     text-align: center;
 }
 #tableHome th{
-    border : thin solid black;
-    background-color: #AAAAAA;
+    border : thin solid #007bff;
+    background-color: white;
 }
 #tableHome td{
     border: thin solid #007bff;
