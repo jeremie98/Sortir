@@ -1,7 +1,5 @@
-
-
 body{
-    background: #8fd19e;
+    background: #9fcdff;
 }
 footer{
 
@@ -73,6 +71,9 @@ footer{
 }
 #tableHome td{
     border: thin solid #007bff;
+}
+#tableHome a{
+    color: #c82333;
 }
 #btnCreateSortie{
     padding: 0.5em;

@@ -36,8 +36,7 @@ class SortieRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->orderBy('s.dateSortie', 'DESC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function findSortiesEntreDates(DateTime $dateEntre, DateTime $dateEt){
@@ -66,8 +65,8 @@ class SortieRepository extends ServiceEntityRepository
     public function findSortiesPass()
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.dateSortie < :date')
-            ->setParameter('date', new \DateTime(date('Y-m-d H:i:s')))
+            ->andWhere('s.etat = :etat')
+            ->setParameter('etat', "Passée")
             ->orderBy('s.dateSortie', 'DESC')
             ->getQuery()
             ->getResult();
