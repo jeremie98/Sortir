@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends AbstractController
 {
@@ -17,9 +19,15 @@ class DefaultController extends AbstractController
      */
     public function home(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
 
         // récupération de l'utilisateur connecté
         $user = $this->getUser();
+
+
+        /*$archiveRepository = $this->getDoctrine()->getRepository(Sortie::class);
+        $archive= $archiveRepository->findSortiesNonArchivees(new \DateTime('now'));
+*/
         // récupération de toutes les sorties
         $sortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sorties = $sortieRepository->findSortiesPlusRecentes();
@@ -29,6 +37,31 @@ class DefaultController extends AbstractController
         $sites = $siteRepository->findAll();
 
 
+        /* GESTION DES ETATS EN FONCTION DE LA DATE */
+        $currentDateTime = new \DateTime('now');
+
+        foreach($sorties as $sortie)
+        {
+            if($sortie->getDateLimiteInscription() < $currentDateTime and $sortie->getDateSortie() > $currentDateTime)
+            {
+                $sortie->setEtat("Clôturée");
+                $em->persist($sortie);
+            }
+            if($sortie->getDateSortie() < $currentDateTime and $sortie->getEtat() != "En création")
+            {
+                $sortie->setEtat("Passée");
+                $em->persist($sortie);
+            }
+            if($sortie->getDateSortie() == $currentDateTime)
+            {
+                $sortie->setEtat("En cours");
+                $em->persist($sortie);
+            }
+
+        }
+        $em->flush();
+
+
         /* Filtres sur les sorties*/
 
         if($request->request->get("site-select")){
@@ -36,7 +69,8 @@ class DefaultController extends AbstractController
             $siteSelect = $siteRepository->find($request->request->get("site-select"));
 
             $sorties = $sortieRepository->findBy(
-                ['siteOrg' => $siteSelect]
+                ['siteOrg' => $siteSelect],
+                ['dateSortie' => 'DESC']
             );
         }
         if($request->request->get("search-bar")){
@@ -54,7 +88,7 @@ class DefaultController extends AbstractController
         if($request->request->get("sortOrg")){
             $sorties = $sortieRepository->findBy(
                 ['organisateur' => $this->getUser()],
-                ['dateSortie' => 'ASC']
+                ['dateSortie' => 'DESC']
             );
         }
         if($request->request->get("sortInsc")){
@@ -78,7 +112,7 @@ class DefaultController extends AbstractController
 
         return $this->render('default/home.html.twig', [
             'controller_name' => 'DefaultController',
-            'participant' => $user,
+            'user' => $user,
             'sorties' => $sorties,
             'sites' => $sites
         ]);
@@ -122,8 +156,8 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/update_my_profil", name="update_my_profil")
-     *
+     * @Route("/update_my_profil", name="update_my_profil"),
+     * ;
      */
     public function updateMyProfil(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
 
@@ -135,7 +169,7 @@ class DefaultController extends AbstractController
         $currentUser->setNom($request->request->get('nom'));
         $currentUser->setTelephone($request->request->get('tel'));
         $password = $request->request->get('password');
-        if(empty($password)){
+        if(!empty($password)){
             $passwordEncoded = $passwordEncoder->encodePassword($currentUser, $password);
             $currentUser->setPassword($passwordEncoded);
         }

@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VilleRepository")
@@ -25,11 +27,22 @@ class Ville
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le nom ne peut être nul ! ")
+     * @Assert\Length(min="2",
+     *     max="50",
+     *     minMessage="2 caractères minimum !",
+     *     maxMessage="50 caractères maximum !")
+     *
      * @ORM\Column(type="string", length=50)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Le code postal ne peut être nul ! ")
+     * @Assert\Length(min="5",
+     *     max="5",
+     *     exactMessage="Le code postal doit faire 5 chiffres !")
+     *
      * @ORM\Column(type="string", length=5)
      */
     private $codePostal;

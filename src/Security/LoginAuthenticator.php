@@ -73,7 +73,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
         if ($user->getEtat() == false){
 
-            throw new CustomUserMessageAuthenticationException('TU es bannis mon pote');
+            throw new CustomUserMessageAuthenticationException('Ton compte est désactivé');
         }
 
         return $user;

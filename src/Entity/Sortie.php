@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
@@ -19,31 +21,61 @@ class Sortie
     private $id;
 
     /**
+     * @Assert\NotBlank(message= "Le nom ne peut être vide !")
+     * @Assert\Length(min="5",
+     *     max="100",
+     *     minMessage="5 caractères minimum !",
+     *     maxMessage="100 caractères maximum !")
+     *
      * @ORM\Column(type="string", length=100)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="La date ne peut être vide !")
+     * @Assert\GreaterThan("today")
+     *
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $dateSortie;
 
     /**
+     * @Assert\NotBlank(message="La date ne peut être vide")
+     * @Assert\GreaterThan("today")
+     *
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $dateLimiteInscription;
 
     /**
+     * @Assert\NotBlank(message="Veuillez renseigner un nombre de place !")
+     * @Assert\Range(min="2",
+     *     max="500",
+     *     minMessage="2 participants minimum !",
+     *     maxMessage="500 participants maximum !"
+     *     )
      * @ORM\Column(type="integer", nullable=false)
      */
     private $nbPlace;
 
     /**
+     * @Assert\NotBlank(message="Veuillez renseigner une durée !")
+     * @Assert\Range(min="30",
+     *     minMessage="30 minutes minimum !"
+     *     )
+     *
      * @ORM\Column(type="integer", nullable=false)
      */
     private $duree;
 
     /**
+     * @Assert\NotBlank(message="Veuillez renseigner une description !")
+     * @Assert\Length(min="10",
+     *     max="500",
+     *     minMessage="10 caractères minimum !",
+     *     maxMessage="60000 caractères maximum !"
+     *     )
+     *
      * @ORM\Column(type="text", nullable=false)
      */
     private $description;
@@ -84,6 +116,8 @@ class Sortie
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->dateLimiteInscription = new \DateTime();
+        $this->dateSortie = new \DateTime();
     }
 
     public function getId(): ?int

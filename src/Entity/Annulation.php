@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnnulationRepository")
@@ -22,6 +24,12 @@ class Annulation
     private $sortie;
 
     /**
+     * @Assert\NotBlank(message="Le motif ne peut être nul ! ")
+     * @Assert\Length(min="10",
+     *     max="255",
+     *     minMessage="10 caractères minimum !",
+     *     maxMessage="255 caractères maximum !")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $motif;

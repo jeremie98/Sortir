@@ -14,16 +14,18 @@
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-">
+            <nav class="navbar navbar-light" style="background-color: #e5f4fd;">
                 <div id="title">
-                        <img src="{{ asset('img/logo.png') }}" width="80" height="80" alt="LogoApplication">
-                        <h1>Sortir</h1>
+                    <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" width="80" height="80" alt="LogoApplication"></a>
+                    <h1>Sortir</h1>
                 </div>
                 <div id="menu">
 
                     {% if is_granted(['ROLE_USER','ROLE_ADMIN']) %}
                         <a href="{{ path('home') }}">Accueil</a>
                         <a href="{{ path('my_profil')}}">Mon profil</a>
+                        <a href="{{ path('groupe') }}"> Faire un groupe</a>
+                        <a href="{{ path('inscrireGroupe') }}"> S'inscrire à un groupe</a>
                         <a href="{{ path('app_logout') }}">Se déconnecter</a>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
@@ -37,7 +39,7 @@
             </nav>
         </header>
 
-            <div id="container-fluid-id">
+            <div class="container-fluid">
                 {% block content %}{% endblock %}
             </div>
 

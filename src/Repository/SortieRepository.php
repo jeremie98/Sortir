@@ -36,8 +36,7 @@ class SortieRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->orderBy('s.dateSortie', 'DESC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function findSortiesEntreDates(DateTime $dateEntre, DateTime $dateEt){
@@ -50,22 +49,24 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
 
     }
-    /* #### Début de fonction pour archivage des sorties passés il y a plus d'un mois ... mai cé kacé
-    public function findSortiesArchivees(){
+
+    public function findSortiesNonArchivees(DateTime $jours){
+        //$jours = \date('y/m/d H:i');
         // requete sql : UPDATE sortie SET etat = 'Archivé' WHERE date_sortie <= DATE_SUB(NOW(), INTERVAL 1 MONTH)
         return $this->createQueryBuilder('s')
-            ->setParameter('date', new \DateTime('-1 month'))
             ->setParameter('s.etat', 'Archivée')
-            ->where("s.dateSortie <= :date")
+            ->where("s.dateSortie <= DATE_SUB('.$jours.', 1, 'MONTH')")
             ->getQuery()
             ->getResult();
-    }*/
+
+    }
+
 
     public function findSortiesPass()
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.dateSortie < :date')
-            ->setParameter('date', new \DateTime(date('Y-m-d H:i:s')))
+            ->andWhere('s.etat = :etat')
+            ->setParameter('etat', "Passée")
             ->orderBy('s.dateSortie', 'DESC')
             ->getQuery()
             ->getResult();

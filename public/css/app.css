@@ -1,7 +1,5 @@
-
-
 body{
-    background: #8fd19e;
+    background: #9fcdff;
 }
 footer{
 
@@ -55,8 +53,20 @@ footer{
     justify-content: space-between;
 }
 #tabSorties{
-    margin-left: 5% ;
+    margin-left: 5%;
+    max-height:400px;
+    max-width:95%;
+    /*overflow:scroll;/*pour activer les scrollbarres
+    overflow-x: hidden;*/
 }
+#table-body-scroll {
+    align-content: center;
+    display: block;
+    max-height: 400px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
 #tableHome{
     border : medium solid black;
     border-collapse: separate;
@@ -69,6 +79,9 @@ footer{
 }
 #tableHome td{
     border: thin solid #007bff;
+}
+#tableHome a{
+    color: #c82333;
 }
 #btnCreateSortie{
     padding: 0.5em;
@@ -111,3 +124,5 @@ footer{
 #container-fluid-id{
     width: 100%;
 }
+
+

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -14,8 +15,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-
-
 
     public function __toString()
     {
@@ -30,6 +29,12 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank(message= "L'email ne peut être vide !")
+     * Assert\Length(min="5",
+     *     max="180",
+     *     minMessage="5 caractères minimum !",
+     *     maxMessage="180 caractères maximum !")
+     *
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -46,21 +51,44 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @Assert\NotBlank(message= "Le pseudo ne peut être vide !")
+     * Assert\Length(min="6",
+     *     max="255",
+     *     minMessage="6 caractères minimum !",
+     *     maxMessage="255 caractères maximum !")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $pseudo;
 
     /**
+     * @Assert\NotBlank(message= "Le prénom ne peut être vide !")
+     * Assert\Length(min="2",
+     *     max="255",
+     *     minMessage="2 caractères minimum !",
+     *     maxMessage="255 caractères maximum !")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
+     * @Assert\NotBlank(message= "Le nom ne peut être vide !")
+     * Assert\Length(min="2",
+     *     max="255",
+     *     minMessage="2 caractères minimum !",
+     *     maxMessage="255 caractères maximum !")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message= "Le téléphone ne peut être vide !")
+     * Assert\Length(min="12",
+     *     max="12",
+     *     exactMessage="12 caractères requis !")
+     *
      * @ORM\Column(type="string", length=12)
      */
     private $telephone;
@@ -71,6 +99,12 @@ class User implements UserInterface
     private $photoPath;
 
     /**
+     * @Assert\NotBlank(message= "La ville ne peut être vide !")
+     * Assert\Length(min="1",
+     *     max="255",
+     *     minMessage="1 caractères minimum !",
+     *     maxMessage="255 caractères maximum !")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $ville;
@@ -96,6 +130,16 @@ class User implements UserInterface
      */
     private $etat;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Groupe", mappedBy="chef", orphanRemoval=true)
+     */
+    private $groupes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Groupe", mappedBy="partipants")
+     */
+    private $groupesIncrit;
+
 
 
     public function __construct()
@@ -105,6 +149,8 @@ class User implements UserInterface
         $this->sorties = new ArrayCollection();
         $this->setRoles(['ROLE_USER']);
         $this->setEtat(true);
+        $this->groupes = new ArrayCollection();
+        $this->groupesIncrit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -317,6 +363,65 @@ class User implements UserInterface
     public function setEtat(bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groupe[]
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Groupe $groupe): self
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes[] = $groupe;
+            $groupe->setChef($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): self
+    {
+        if ($this->groupes->contains($groupe)) {
+            $this->groupes->removeElement($groupe);
+            // set the owning side to null (unless already changed)
+            if ($groupe->getChef() === $this) {
+                $groupe->setChef(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groupe[]
+     */
+    public function getGroupesIncrit(): Collection
+    {
+        return $this->groupesIncrit;
+    }
+
+    public function addGroupesIncrit(Groupe $groupesIncrit): self
+    {
+        if (!$this->groupesIncrit->contains($groupesIncrit)) {
+            $this->groupesIncrit[] = $groupesIncrit;
+            $groupesIncrit->addPartipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupesIncrit(Groupe $groupesIncrit): self
+    {
+        if ($this->groupesIncrit->contains($groupesIncrit)) {
+            $this->groupesIncrit->removeElement($groupesIncrit);
+            $groupesIncrit->removePartipant($this);
+        }
 
         return $this;
     }
