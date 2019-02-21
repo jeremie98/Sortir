@@ -74,8 +74,7 @@ class SortieController extends AbstractController
             }
             else
             {
-                $dateLimite = $currentDatetime->modify('+ 12 hours');
-                $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $dateLimite->format("Y-m-d H:i"). " être antérieure à la date de la sortie !");
+                $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $currentDatetime->format("Y-m-d H:i"). " et antérieure à la date de la sortie !");
             }
 
         }
@@ -187,8 +186,8 @@ class SortieController extends AbstractController
             }
             else
             {
-                $dateLimite = $currentDatetime->modify('+ 12 hours');
-                $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $dateLimite->format("Y-m-d H:i"). " être antérieure à la date de la sortie !");
+                $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $currentDatetime->format("Y-m-d H:i"). " et antérieure à la date de la sortie !");
+                return $this->redirectToRoute("home");
             }
         }
     }

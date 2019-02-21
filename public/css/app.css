@@ -53,9 +53,11 @@ footer{
     justify-content: space-between;
 }
 #tabSorties{
-    max-height:10%;
-    max-width:90%;
+    margin-left: 5%;
+    max-height:400px;
+    max-width:95%;
     overflow:scroll;/*pour activer les scrollbarres*/
+    overflow-x: hidden;
 }
 #tableHome{
     border : medium solid black;
