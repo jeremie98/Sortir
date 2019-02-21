@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Sortir{% endblock %}</title>
+        {%  block csv %}
+        {% endblock %}
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
             <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -18,12 +20,16 @@
                 </div>
                 <div id="menu">
 
-                    <a href="{{ path('home') }}">Accueil</a>
-                    <a href="{{ path('my_profil')}}">Mon profil</a>
-                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    {% if is_granted(['ROLE_USER','ROLE_ADMIN']) %}
+                        <a href="{{ path('home') }}">Accueil</a>
+                        <a href="{{ path('my_profil')}}">Mon profil</a>
+                        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('csv') }}"> Csv </a>
+                        <a href="{{ path('updateEtat') }}"> Etat</a>
                         <a href="{{ path('ville') }}">Villes</a>
-                        <a href="#">Sites</a>
+                        <a href="{{ path('site') }}">Sites</a>
                         <a href="{{ path('app_register') }}">Inscrire un utilisateur</a>
                     {% endif %}
                 </div>

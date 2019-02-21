@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+
+
+    <table id="tableHome">
+    <tr>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for user in users %}
+
+
+        <tr>
+            <td>{{ user.nom }}</td>
+            <td>{{ user.prenom }}</td>
+            <td>
+
+                    {% if user.etat == false %}
+                        <form method="post" action="{{ path('updateEtat') }}">
+                            <input type="hidden" name="activer" value="{{ user.id }}">
+                            <button type="submit">Activer</button>
+                        </form>
+
+
+                    {% else %}
+                        <form method="post" action="{{ path('updateEtat') }}">
+                            <input type="hidden" name="désactiver" value="{{ user.id }}">
+                            <button type="submit">Désactiver</button>
+                        </form>
+                        {% endif %}
+
+        </tr>
+
+    {% endfor %}
+
+{%  endblock %}

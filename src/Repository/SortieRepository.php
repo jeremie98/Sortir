@@ -61,17 +61,6 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }*/
 
-    public function findSortiesPasInscrit()
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere(":user NOT IN(s.participants)")
-            ->setParameter('user', get_current_user())
-            ->orderBy('s.nom', 'ASC')
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-
     public function findSortiesPass()
     {
         return $this->createQueryBuilder('s')

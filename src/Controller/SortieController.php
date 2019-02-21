@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
+
+
+
     /**
      * @Route("/sortie/create", name="createsortie")
      */
@@ -123,29 +126,19 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/inscrire/{id}",
-     *      name="inscrire",
-     *     requirements={"id": "\d+"},
-     *     methods={"GET"})
+     * @Route("/sortie/inscrire", name="inscrire",
+     * methods={"POST"})
      */
-    public function inscrire(int $id)
+    public function inscrire(Request $request)
     {
         $SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
-        $sortie = $SortieRepository->find($id);
+        $sortie = $SortieRepository->find($request->request->get('id_sortie'));
 
-        // on inscrit l'utilisateur que si le côtat le permet
-        if(count($sortie->getParticipants()) < $sortie->getNbPlace())
-        {
-            $sortie->addParticipant($this->getUser());
+        $sortie->addParticipant($this->getUser());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($sortie);
-            $em->flush();
-        }
-        else
-        {
-            throw  $this->createNotFoundException("Plus de place c'est dommage !");
-        }
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($sortie);
+        $em->flush();
 
         return $this->redirectToRoute('home');
     }

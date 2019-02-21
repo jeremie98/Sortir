@@ -91,12 +91,20 @@ class User implements UserInterface
      */
     private $userSite;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
+
+
     public function __construct()
     {
 
         $this->sortiesOrg = new ArrayCollection();
         $this->sorties = new ArrayCollection();
         $this->setRoles(['ROLE_USER']);
+        $this->setEtat(true);
     }
 
     public function getId(): ?int
@@ -296,6 +304,19 @@ class User implements UserInterface
     public function setUserSite(?Site $userSite): self
     {
         $this->userSite = $userSite;
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }
