@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LieuController!{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Ajouter des lieux</h1>
+
+        {{ form_start(lieuForm) }}
+        {{ form_widget(lieuForm) }}
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        {{ form_end(lieuForm) }}<br>
+        <a href="{{ path('createsortie') }}" class="btn btn-outline-secondary">Retour</a>
+
+    </div>
+{% endblock %}
