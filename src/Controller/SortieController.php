@@ -182,7 +182,8 @@ class SortieController extends AbstractController
             }
             else
             {
-                $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $currentDatetime->format("Y-m-d H:i"). " et antérieure à la date de la sortie !");
+                $this->addFlash('danger', "La date limite d'inscription doit être supérieure à ". $currentDatetime->format("Y-m-d H:i"). ", soit 12h à compter de maintenant, 
+                pour laisser le temps aux participants de s'informer !");
                 return $this->redirectToRoute("home");
             }
 
