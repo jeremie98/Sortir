@@ -5,18 +5,18 @@
 {% block content %}
 
     <form  class="container" method="post" action="update_my_profil">
+        <h3>Mon profil</h3>
         <div class="row">
-            <div class="col-5">
+            <div class="col-lg-5">
                 <img src="{{ asset('img/profil/profil.jpg') }}" alt="profil" width="50%">
                 <form action="photo" >
                     <input type="file" name="photo"><br>
-                    <button type="submit"> Ajouter </button>
+                    {#<button type="submit"> Ajouter </button>#}
 
                 </form>
 
             </div>
-            <div class="col-5">
-                <h3>Mon profil</h3>
+            <div class="col-lg-5">
                 <label for="inputUsername">Pseudo</label>
                 <input name="pseudo" type="text" id="username" class="form-control"  value="{{ currentUser.pseudo }}">
 

@@ -14,7 +14,7 @@
     </head>
     <body>
         <header>
-            <nav id="main-nav">
+            <nav class="navbar navbar-light" style="background-color: #e5f4fd;">
                 <div id="title">
                     <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" width="80" height="80" alt="LogoApplication"></a>
                     <h1>Sortir</h1>
@@ -40,7 +40,7 @@
             </nav>
         </header>
 
-            <div id="container-fluid-id">
+            <div class="container-fluid">
                 {% block content %}{% endblock %}
             </div>
 
