@@ -18,13 +18,12 @@
                    value="{{ csrf_token('authenticate') }}">
 
 
-            <input type="checkbox" id="remember_me" name="_remember_me" checked />
-            <label for="remember_me">remember me</label>
             <button class="btn btn-primary" type="submit">
                 Connexion
             </button>
+            <input type="checkbox" id="remember_me" name="_remember_me" checked />
+            <label for="remember_me">remember me</label>
         </form>
-        <a href="{{ path('app_register') }}" class="btn btn-success">S'inscrire</a>
 
     </div>
 {% endblock %}
