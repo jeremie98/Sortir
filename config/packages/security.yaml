@@ -45,4 +45,5 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/()$ , allow_if: "not is_granted('ROLE_USER')"}
         - { path: ^/(home)$,roles:['ROLE_USER','ROLE_ADMIN']}
-        - { path: ^/register, allow_if: "is_granted('ROLE_ADMIN')"}
+        - { path: ^/(register), allow_if: "not is_granted('ROLE_USER')"}
+        - { path: ^/register/csv, allow_if: "is_granted('ROLE_ADMIN')"}
