@@ -39,7 +39,7 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findSortiesEntreDates(DateTime $dateEntre, DateTime $dateEt){
+    public function findSortiesEntreDates(\DateTime $dateEntre, \DateTime $dateEt){
         return $this->createQueryBuilder('s')
             ->andWhere('s.dateSortie BETWEEN :dateEntre and :dateEt')
             ->setParameter('dateEntre', $dateEntre)

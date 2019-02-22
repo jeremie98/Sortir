@@ -76,14 +76,14 @@ class DefaultController extends AbstractController
         if($request->request->get("search-bar")){
             $sorties = $sortieRepository->findSortiesContenant($request->request->get("search-bar"));
         }
-        /*if($request->request->get("dateEntre") && $request->request->get("dateEt")){
+        if($request->request->get("dateEntre") && $request->request->get("dateEt")){
 
 
-            $dateEntre = new \DateTime($request->request->get("dateEntre")|date('Y-m-d H:i:s'));
-            $dateEt = new \DateTime($request->request->get("dateEt")|date('Y-m-d H:i:s'));
+            $dateEntre = new \DateTime($request->request->get("dateEntre"));
+            $dateEt = new \DateTime($request->request->get("dateEt"));
 
             $sorties = $sortieRepository->findSortiesEntreDates($dateEntre, $dateEt);
-        }*/
+        }
 
         if($request->request->get("sortOrg")){
             $sorties = $sortieRepository->findBy(
