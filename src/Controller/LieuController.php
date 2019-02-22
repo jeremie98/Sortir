@@ -22,6 +22,8 @@ class LieuController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($lieu);
             $em->flush();
+
+            $this->addFlash('success',  "Votre lieu a bien été ajouté !");
             return $this->redirectToRoute('createsortie');
         }
         return $this->render('lieu/lieu.html.twig', ['lieuForm' => $lieuForm->createView()]);

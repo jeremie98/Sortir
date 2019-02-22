@@ -7,6 +7,7 @@ use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,8 +24,12 @@ class SortieType extends AbstractType
             ])
             ->add('dateSortie')
             ->add('dateLimiteInscription')
-            ->add('nbPlace')
-            ->add('duree')
+            ->add('nbPlace', IntegerType::class, [
+                'label' => "Nombre de participants maximum : "
+            ])
+            ->add('duree', IntegerType::class, [
+                'label' => "Durée (en minutes) : "
+            ])
             ->add('description')
             ->add('lieu')
         ;

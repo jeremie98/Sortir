@@ -15,6 +15,16 @@
             document.getElementById("myP2").style.visibility = "visible";
         }
     </script>
+
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes(['danger', 'success']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <h1> GERER LES VILLES </h1>
 
 
@@ -45,8 +55,8 @@
         {% endfor %}
         <tr>
             <form method="post" action="{{ 'ville' }}">
-            <td><input type="text" name="nom"></td>
-            <td><input type="text" name="cp"></td>
+            <td><input type="text" name="nom" placeholder="Nom ville"></td>
+            <td><input type="text" name="cp" placeholder="Code postal"></td>
                 <td><button type="submit">Ajouter</button></td>
             </form>
         </tr>

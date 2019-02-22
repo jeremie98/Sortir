@@ -32,6 +32,8 @@ class SiteController extends AbstractController
             $em->persist($site);
             $em->flush();
 
+            $this->addFlash('success',  "Modification effectuée !");
+
             return $this->redirectToRoute('site');
         }
 
@@ -42,6 +44,8 @@ class SiteController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($site);
             $em->flush();
+
+            $this->addFlash('success',  "Lieu ". $site->getNom(). " ajoutée !");
 
             return $this->redirectToRoute('site');
         }
@@ -67,6 +71,7 @@ class SiteController extends AbstractController
         $em->remove($site);
         $em->flush();
 
+        $this->addFlash('success',  "Lieu supprimé !");
         return $this->redirectToRoute('site');
 
     }

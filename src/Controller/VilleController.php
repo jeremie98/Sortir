@@ -35,6 +35,8 @@ class VilleController extends AbstractController
             $em->persist($ville);
             $em->flush();
 
+            $this->addFlash('success',  "Modification effectuée !");
+
             return $this->redirectToRoute('ville');
         }
 
@@ -47,9 +49,10 @@ class VilleController extends AbstractController
             $em->persist($ville);
             $em->flush();
 
+            $this->addFlash('success',  "Lieu ". $ville->getNom(). " ajoutée !");
+
             return $this->redirectToRoute('ville');
         }
-
 
 
         return $this->render('ville/ville.html.twig', [
@@ -71,6 +74,8 @@ class VilleController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($ville);
         $em->flush();
+
+        $this->addFlash('success',  "Ville supprimée !");
 
         return $this->redirectToRoute('ville');
 
