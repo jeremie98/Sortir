@@ -17,7 +17,7 @@
         {{ form_start(sortieForm) }}
         <div class="row">
 
-            <div class="col-6">
+            <div class="col-lg-6">
                 {{ form_row(sortieForm.nom) }}
                 {{ form_row(sortieForm.nbPlace ) }}
                 {{ form_row(sortieForm.duree ) }}
@@ -26,7 +26,7 @@
                 {{ form_row(sortieForm.dateLimiteInscription) }}
             </div>
 
-            <div class="col-6">
+            <div class="col-lg-6">
                 <div class="form-group">
                     <label for="user_ville">Ville organisatrice :</label>
                     <input class="form-control" id="disabledInput" type="text" name="site_id" placeholder="{{ user.getUserSite() }}"disabled >
